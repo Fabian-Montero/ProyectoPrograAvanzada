@@ -122,6 +122,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Entidades\Direccion.cs" />
+    <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -181,7 +183,7 @@
     <Content Include="Views\Inicio\Inicio.cshtml" />
     <Content Include="Views\Shared\_LayoutExterno.cshtml" />
     <Content Include="Views\Usuario\Login.cshtml" />
-    <Content Include="Views\Usuario\Registro.cshtml" />
+    <Content Include="Views\Usuario\RegistrarUsuario.cshtml" />
     <Content Include="Views\Usuario\OlvidarContrasenna.cshtml" />
     <Content Include="Views\Usuario\Error401.cshtml" />
     <Content Include="Views\Usuario\Error404.cshtml" />
