@@ -7,26 +7,28 @@ namespace ProyectoWebGrupo6.Entidades
 {
     public class Usuario
     {
-        public int direccionId {get; set;} 
+        public Direccion Direccion { get; set; }
+        public string Nombre { get; set; }
+        public string Apellidos { get; set; }
+        public string Email { get; set; }
+        public string Contrasenna { get; set; }
 
-        public Direccion direccion { get; set;}
-        public string nombre { get; set; }
-        public string apellidos { get; set; }
-        public string email { get; set; }
-        public string contrasenna { get; set; }
+        public string ConfirmacionContrasenna { get; set; }
+        public bool Activo { get; set; }
 
-        public string confirmacionContrasenna { get; set; }
-        public int activo { get; set; }
+        public long Id {get; set;}
 
     }
 
-    public class Confirmacion 
+    public class ConfirmacionUsuario
     { 
         public int Codigo { get; set; }
         public String Detalle { get; set; }
-        public Usuario usuario { get; set; }
+        public Usuario Usuario { get; set; }
 
-        public List<Usuario> usuarios { get; set; }
-    
+        public List<Usuario> Usuarios { get; set; }
+
+       
+
     }
 }

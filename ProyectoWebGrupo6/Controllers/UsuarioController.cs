@@ -1,21 +1,39 @@
 ﻿using ProyectoWebGrupo6.Entidades;
+using ProyectoWebGrupo6.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace ProyectoWebGrupo6.Controllers
 {
     public class UsuarioController : Controller
     {
+        UsuarioModel usuarioModel = new UsuarioModel();
 
-        //Inyectar modelo
-       
-        public ActionResult Login()
+        [HttpGet]
+        public ActionResult IniciarSesionUsuario()
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult IniciarSesionUsuario(Usuario usuario)
+        {
+            var respuesta = usuarioModel.IniciarSesionUsuario(usuario);
+
+            if (respuesta.Codigo == 0)
+                return RedirectToAction("Inicio", "Inicio");
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
         [HttpGet]
         public ActionResult RegistrarUsuario()
         {
@@ -24,11 +42,21 @@ namespace ProyectoWebGrupo6.Controllers
         [HttpPost]
         public ActionResult RegistrarUsuario(Usuario usuario)
         {
-            //Llamada al api
-            ViewBag.msjPantalla = "Llamada al modelo";
-            return View();
+            var respuesta = usuarioModel.RegistrarUsuario(usuario);
+
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("IniciarSesionUsuario", "Usuario");
+            }
+            else
+            {
+                ViewBag.msjPantalla = respuesta.Detalle;
+                return View();
+            }
             
         }
+        
+        
 
         public ActionResult OlvidarContrasenna()
         {
@@ -48,5 +76,29 @@ namespace ProyectoWebGrupo6.Controllers
         {
             return View();
         }
+
+        /*
+         * 
+         * Este Metodo puede servir mas adelante
+        [HttpPost]
+        public Usuario EncontrarPorCorreo(Usuario usuario)
+        {
+            
+            var respuesta = usuarioModel.encontrarPorCorreo(usuario);
+
+            if (respuesta.Codigo != 0)
+            {
+                return respuesta.usuario;
+                //ViewBag.errorEncontarPorCorreo = respuesta.Detalle;
+                //return RedirectToAction("RegistrarUsuario", "Usuario");
+            }
+            else
+            {
+                //return RedirectToAction("Login", "Usuario");
+                return null;
+            }
+        }
+
+        */
     }
 }
