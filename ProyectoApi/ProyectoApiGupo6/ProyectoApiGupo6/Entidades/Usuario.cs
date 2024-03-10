@@ -13,7 +13,7 @@ namespace ProyectoApiGupo6.Entidades
         public string Apellidos { get; set; }
         public string Email { get; set; }
         public string Contrasenna { get; set; }
-
+        public string NuevaContrasenna { get; set; }
         public string ConfirmacionContrasenna { get; set; }
         public bool Activo { get; set; }
         public long Id { get; set; }

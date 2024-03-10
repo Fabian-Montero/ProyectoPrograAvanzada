@@ -16,7 +16,7 @@ namespace ProyectoWebGrupo6
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Inicio", action = "Inicio", id = UrlParameter.Optional }
+                defaults: new { controller = "Usuario", action = "IniciarSesionUsuario", id = UrlParameter.Optional }
             );
         }
     }

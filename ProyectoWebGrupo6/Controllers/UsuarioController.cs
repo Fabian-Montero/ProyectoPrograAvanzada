@@ -55,13 +55,6 @@ namespace ProyectoWebGrupo6.Controllers
             }
             
         }
-        
-        
-
-        public ActionResult OlvidarContrasenna()
-        {
-            return View();
-        }
 
         public ActionResult Error401()
         {
@@ -100,5 +93,48 @@ namespace ProyectoWebGrupo6.Controllers
         }
 
         */
+        [HttpGet]
+        public ActionResult EnvioCodigoAcceso()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult EnvioCodigoAcceso(Usuario usuario)
+        {
+            var respuesta = usuarioModel.EnvioCodigoAcceso(usuario);
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("RegistrarNuevaContrasenna", "Usuario");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        public ActionResult RegistrarNuevaContrasenna()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegistrarNuevaContrasenna(Usuario usuario)
+        {
+            var respuesta = usuarioModel.RegistrarNuevaContrasenna(usuario);
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("IniciarSesionUsuario", "Usuario");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
+
     }
 }

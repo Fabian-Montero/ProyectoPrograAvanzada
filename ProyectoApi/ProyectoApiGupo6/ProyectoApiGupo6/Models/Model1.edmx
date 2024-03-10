@@ -8,6 +8,9 @@
         <Function Name="EncontrarPorCorreo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="EnvioCodigoAcceso" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="IniciarSesionUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Email" Type="varchar" Mode="In" />
           <Parameter Name="Contrasenna" Type="varchar" Mode="In" />
@@ -18,6 +21,11 @@
           <Parameter Name="Canton" Type="varchar" Mode="In" />
           <Parameter Name="Distrito" Type="varchar" Mode="In" />
           <Parameter Name="DireccionExacta" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="RegistrarNuevaContrasenna" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoAcceso" Type="varchar" Mode="In" />
+          <Parameter Name="NuevaContrasenna" Type="varchar" Mode="In" />
+          <Parameter Name="ConfirmacionContrasenna" Type="varchar" Mode="In" />
         </Function>
         <Function Name="RegistrarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Nombre" Type="varchar" Mode="In" />
@@ -31,9 +39,12 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MordidaDivinaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="MordidaDivinaEntities1" annotation:LazyLoadingEnabled="true" >
+        <EntityContainer Name="MordidaDivinaEntities" annotation:LazyLoadingEnabled="true" >
           <FunctionImport Name="EncontrarPorCorreo" ReturnType="Collection(MordidaDivinaModel.EncontrarPorCorreo_Result)">
             <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="EnvioCodigoAcceso" ReturnType="Collection(MordidaDivinaModel.EnvioCodigoAcceso_Result)">
+            <Parameter Name="email" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="IniciarSesionUsuario" ReturnType="Collection(MordidaDivinaModel.IniciarSesionUsuario_Result)">
             <Parameter Name="Email" Mode="In" Type="String" />
@@ -45,6 +56,11 @@
             <Parameter Name="Canton" Mode="In" Type="String" />
             <Parameter Name="Distrito" Mode="In" Type="String" />
             <Parameter Name="DireccionExacta" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RegistrarNuevaContrasenna" ReturnType="Collection(MordidaDivinaModel.RegistrarNuevaContrasenna_Result)">
+            <Parameter Name="CodigoAcceso" Mode="In" Type="String" />
+            <Parameter Name="NuevaContrasenna" Mode="In" Type="String" />
+            <Parameter Name="ConfirmacionContrasenna" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="RegistrarUsuario">
             <Parameter Name="Nombre" Mode="In" Type="String" />
@@ -62,6 +78,17 @@
           <Property Type="String" Name="contrasenna" Nullable="false" MaxLength="255" />
           <Property Type="Boolean" Name="activo" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="EnvioCodigoAcceso_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int64" Name="rolId" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="contrasenna" Nullable="false" MaxLength="255" />
+          <Property Type="Boolean" Name="activo" Nullable="false" />
+          <Property Type="Boolean" Name="temporal" Nullable="false" />
+          <Property Type="DateTime" Name="vencimiento" Nullable="false" Precision="23" />
+        </ComplexType>
         <ComplexType Name="IniciarSesionUsuario_Result">
           <Property Type="Int64" Name="id" Nullable="false" />
           <Property Type="Int64" Name="rolId" Nullable="false" />
@@ -70,13 +97,26 @@
           <Property Type="String" Name="email" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="contrasenna" Nullable="false" MaxLength="255" />
           <Property Type="Boolean" Name="activo" Nullable="false" />
+          <Property Type="Boolean" Name="temporal" Nullable="false" />
+          <Property Type="DateTime" Name="vencimiento" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="RegistrarNuevaContrasenna_Result">
+          <Property Type="Int64" Name="id" Nullable="false" />
+          <Property Type="Int64" Name="rolId" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="apellidos" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="contrasenna" Nullable="false" MaxLength="255" />
+          <Property Type="Boolean" Name="activo" Nullable="false" />
+          <Property Type="Boolean" Name="temporal" Nullable="false" />
+          <Property Type="DateTime" Name="vencimiento" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MordidaDivinaModelStoreContainer" CdmEntityContainer="MordidaDivinaEntities1" >
+        <EntityContainerMapping StorageEntityContainer="MordidaDivinaModelStoreContainer" CdmEntityContainer="MordidaDivinaEntities" >
           <FunctionImportMapping FunctionImportName="EncontrarPorCorreo" FunctionName="MordidaDivinaModel.Store.EncontrarPorCorreo">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MordidaDivinaModel.EncontrarPorCorreo_Result">
@@ -90,6 +130,21 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EnvioCodigoAcceso" FunctionName="MordidaDivinaModel.Store.EnvioCodigoAcceso">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MordidaDivinaModel.EnvioCodigoAcceso_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="temporal" ColumnName="temporal" />
+                <ScalarProperty Name="vencimiento" ColumnName="vencimiento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="IniciarSesionUsuario" FunctionName="MordidaDivinaModel.Store.IniciarSesionUsuario">
             <ResultMapping>
               <ComplexTypeMapping TypeName="MordidaDivinaModel.IniciarSesionUsuario_Result">
@@ -100,10 +155,27 @@
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
                 <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="temporal" ColumnName="temporal" />
+                <ScalarProperty Name="vencimiento" ColumnName="vencimiento" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarDireccion" FunctionName="MordidaDivinaModel.Store.RegistrarDireccion" />
+          <FunctionImportMapping FunctionImportName="RegistrarNuevaContrasenna" FunctionName="MordidaDivinaModel.Store.RegistrarNuevaContrasenna">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="MordidaDivinaModel.RegistrarNuevaContrasenna_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="rolId" ColumnName="rolId" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contrasenna" ColumnName="contrasenna" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="temporal" ColumnName="temporal" />
+                <ScalarProperty Name="vencimiento" ColumnName="vencimiento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="RegistrarUsuario" FunctionName="MordidaDivinaModel.Store.RegistrarUsuario" />
         </EntityContainerMapping>
       </Mapping>

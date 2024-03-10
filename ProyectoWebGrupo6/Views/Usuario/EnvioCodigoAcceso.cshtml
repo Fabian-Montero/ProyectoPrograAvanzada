@@ -1,9 +1,8 @@
 ﻿@model ProyectoWebGrupo6.Entidades.Usuario
 @{
-    ViewBag.Title = "Inicio de Sesión";
+    ViewBag.Title = "EnvioCodigoAcceso";
     Layout = "~/Views/Shared/_LayoutExterno.cshtml";
 }
-
 
 <div id="layoutAuthentication">
     <div id="layoutAuthentication_content">
@@ -12,8 +11,9 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Inicio de Sesión</h3></div>
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Recuperar Acceso</h3></div>
                             <div class="card-body">
+                                <div class="small mb-3 text-muted">Ingresa tu correo electrónico y te enviaremos un link para restablecer la contraseña.</div>
 
                                 @if (ViewBag.MsjPantalla != null)
                                 {
@@ -21,27 +21,21 @@
                                         @ViewBag.MsjPantalla
                                     </div>
                                 }
-                                @using (Html.BeginForm("IniciarSesionUsuario", "Usuario"))
+
+                                @using (Html.BeginForm("EnvioCodigoAcceso", "Usuario"))
                                 {
                                     <div class="form-floating mb-3">
                                         @Html.TextBoxFor(m => m.Email, new { @class = "form-control form-control-user", @placeholder = "Ingrese su correo electrónico", @type = "Email", @required = "true", @Id = "Email" })
                                         <label for="Email">Correo Electrónico</label>
                                     </div>
-                                    <div class="form-floating mb-3">
-
-                                        @Html.TextBoxFor(m => m.Contrasenna, new { @class = "form-control form-control-user", @placeholder = "Ingrese su contraseña", @type = "Password", @required = "true", @Id = "Contrasenna" })
-                                        <label for="Contrasenna">Contraseña</label>
-                                    </div>
-
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                        <a class="small" href="@Url.Action("EnvioCodigoAcceso", "Usuario")">¿Olvidaste la Contraseña?</a>
-                                        <input type="submit" class="btn btn-user btn-block InputColor"  value="Iniciar Sesión">
+                                        <a class="small" href="@Url.Action("IniciarSesionUsuario", "Usuario")">Volver al Inicio de Sesión</a>
+                                        <input type="submit" class="btn btn-user btn-block InputColor" value="Restablecer Contraseña">
                                     </div>
                                 }
-
-                            </div>
-                            <div class="card-footer text-center py-3">
-                                <div class="small"><a href="@Url.Action("RegistrarUsuario", "Usuario")">¿Necesitas una cuenta? Registrate!</a></div>
+                                <div class="card-footer text-center py-3">
+                                    <div class="small"><a href="@Url.Action("RegistrarUsuario", "Usuario")">¿Necesitas una cuenta? Registrate!</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -50,6 +44,4 @@
         </main>
     </div>
 </div>
-
-
 

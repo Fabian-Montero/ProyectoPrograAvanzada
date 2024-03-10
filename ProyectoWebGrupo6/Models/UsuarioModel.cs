@@ -67,6 +67,46 @@ namespace ProyectoWebGrupo6.Models
         }
 
         */
+        public Confirmacion EnvioCodigoAcceso(Usuario usuario)
+        {
+            using (var client = new HttpClient())
+            {
+                url += "Usuario/EnvioCodigoAcceso";
 
+                JsonContent jsonEntidad = JsonContent.Create(usuario);
+
+                var respuesta = client.PostAsync(url, jsonEntidad).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public Confirmacion RegistrarNuevaContrasenna(Usuario usuario)
+        {
+            using (var client = new HttpClient())
+            {
+                url += "Usuario/RegistrarNuevaContrasenna";
+
+                JsonContent jsonEntidad = JsonContent.Create(usuario);
+
+                var respuesta = client.PostAsync(url, jsonEntidad).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

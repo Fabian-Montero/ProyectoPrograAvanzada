@@ -1,0 +1,42 @@
+.InputColor {
+    background-color: #e827a0;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.InputColor:hover {
+    background-color: #5dc1b9;
+    color: #ffffff;
+}
+
+
+.navbarColor {
+    background-color: #e827a0;
+}
+
+.textWhite{
+    color:#ffffff
+}
+
+.navlinkColor {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+}
+
+    .navlinkColor:hover, .navlinkColor:focus {
+        color: #41162d;
+        text-decoration: none;
+    }
+
+.navlinkColor.disabled {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: default;
+}

@@ -11,7 +11,7 @@ namespace ProyectoApiGupo6.Models
 {
     using System;
     
-    public partial class IniciarSesionUsuario_Result
+    public partial class RegistrarNuevaContrasenna_Result
     {
         public long id { get; set; }
         public long rolId { get; set; }
