@@ -26,7 +26,14 @@ namespace ProyectoWebGrupo6.Controllers
             var respuesta = usuarioModel.IniciarSesionUsuario(usuario);
 
             if (respuesta.Codigo == 0)
+            {
+                string nombreCompleto = respuesta.Usuario.Nombre + " " + respuesta.Usuario.Apellidos;
+                Session["NombreCompleto"] = nombreCompleto;
+
+                Session["RolUsuario"] = respuesta.Usuario.rolId;
+
                 return RedirectToAction("Inicio", "Inicio");
+            }
             else
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
@@ -135,6 +142,13 @@ namespace ProyectoWebGrupo6.Controllers
             }
         }
 
+        [FiltroSeguridad]
+        [HttpGet]
+        public ActionResult CerrarSesionUsuario()
+        {
+            Session.Clear();
+            return RedirectToAction("IniciarSesionUsuario","Usuario");
+        }
 
     }
 }

@@ -8,10 +8,17 @@ using ProyectoWebGrupo6.Models;
 namespace ProyectoWebGrupo6.Controllers
 {
     [FiltroSeguridad]
-    public class InicioController : Controller
+    public class ProductoController : Controller
     {
         // GET: Inicio
-        public ActionResult Inicio()
+        public ActionResult ConsultarProducto()
+        {
+            return View();
+        }
+
+        [FiltroAdmin]
+        // GET: Inicio
+        public ActionResult ActualizarProducto()
         {
             return View();
         }

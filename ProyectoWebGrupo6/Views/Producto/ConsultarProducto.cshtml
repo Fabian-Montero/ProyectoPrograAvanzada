@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Producto";
+}
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Pantalla de Productos</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                <p>Aqui irá la pantalla de productos</p>
+                @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "1")
+                {
+                    <a href="@Url.Action("ActualizarProducto", "Producto")">Actualizar</a>
+                }
+            </div>
+        </div>
+    </div>
+</main>
+

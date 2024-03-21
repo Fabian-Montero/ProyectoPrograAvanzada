@@ -18,6 +18,8 @@ namespace ProyectoWebGrupo6.Entidades
 
         public long Id {get; set;}
 
+        public long rolId { get; set; }
+
     }
 
     public class ConfirmacionUsuario
