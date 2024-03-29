@@ -16,10 +16,6 @@ namespace ProyectoWebGrupo6.Controllers
     [FiltroSeguridad]
     [OutputCache(NoStore = true, Duration = 0)]
 
-    //Prueba fabian
-
-    //Prueba Carlos
-
     public class ProductoController : Controller
     {
 
