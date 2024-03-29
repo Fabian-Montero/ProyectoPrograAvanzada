@@ -15,6 +15,7 @@ namespace ProyectoWebGrupo6.Controllers
 {
     [FiltroSeguridad]
     [OutputCache(NoStore = true, Duration = 0)]
+    //Prueba fabian
     public class ProductoController : Controller
     {
 
