@@ -9,6 +9,8 @@ namespace ProyectoApiGupo6.Entidades
     {
         public int Codigo { get; set; }
         public string Detalle { get; set; }
+
+        public long ProductoId { get; set; }
     }
 }
 

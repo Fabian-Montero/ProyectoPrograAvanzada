@@ -30,7 +30,7 @@
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion navbarColor"  id="sidenavAccordion">
+            <nav class="sb-sidenav accordion sideNavbarColor"  id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading" style="color: #41162d">Core</div>
@@ -42,6 +42,13 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Productos
                         </a>
+                        @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "1")
+                        {
+                            <a class="nav-link navlinkColor" href="@Url.Action("MantenimientoProductos", "Producto")">
+                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                Mantenimiento Productos
+                            </a>
+                        }
                         <div class="sb-sidenav-menu-heading" style="color: #41162d">Vistas</div>
 
                         <a class="nav-link navlinkColor" href="@Url.Action("IniciarSesionUsuario", "Usuario")">

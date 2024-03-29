@@ -28,6 +28,72 @@ namespace ProyectoApiGupo6.Models
         }
     
     
+        public virtual int ActualizarImagenProducto(Nullable<long> productoId, string rutaImagen)
+        {
+            var productoIdParameter = productoId.HasValue ?
+                new ObjectParameter("ProductoId", productoId) :
+                new ObjectParameter("ProductoId", typeof(long));
+    
+            var rutaImagenParameter = rutaImagen != null ?
+                new ObjectParameter("RutaImagen", rutaImagen) :
+                new ObjectParameter("RutaImagen", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarImagenProducto", productoIdParameter, rutaImagenParameter);
+        }
+    
+        public virtual int ActualizarProducto(Nullable<long> productoId, Nullable<long> categoriaId, string nombreProducto, string descripcion, Nullable<decimal> precio)
+        {
+            var productoIdParameter = productoId.HasValue ?
+                new ObjectParameter("ProductoId", productoId) :
+                new ObjectParameter("ProductoId", typeof(long));
+    
+            var categoriaIdParameter = categoriaId.HasValue ?
+                new ObjectParameter("CategoriaId", categoriaId) :
+                new ObjectParameter("CategoriaId", typeof(long));
+    
+            var nombreProductoParameter = nombreProducto != null ?
+                new ObjectParameter("NombreProducto", nombreProducto) :
+                new ObjectParameter("NombreProducto", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ActualizarProducto", productoIdParameter, categoriaIdParameter, nombreProductoParameter, descripcionParameter, precioParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarProducto_Result> ConsultarProducto(Nullable<long> productoId)
+        {
+            var productoIdParameter = productoId.HasValue ?
+                new ObjectParameter("ProductoId", productoId) :
+                new ObjectParameter("ProductoId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarProducto_Result>("ConsultarProducto", productoIdParameter);
+        }
+    
+        public virtual ObjectResult<ConsultarProductos_Result> ConsultarProductos()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarProductos_Result>("ConsultarProductos");
+        }
+    
+        public virtual ObjectResult<ConsultarTiposCategoria_Result> ConsultarTiposCategoria()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ConsultarTiposCategoria_Result>("ConsultarTiposCategoria");
+        }
+    
+        public virtual int EliminarProducto(Nullable<long> productoId)
+        {
+            var productoIdParameter = productoId.HasValue ?
+                new ObjectParameter("ProductoId", productoId) :
+                new ObjectParameter("ProductoId", typeof(long));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("EliminarProducto", productoIdParameter);
+        }
+    
         public virtual ObjectResult<EncontrarPorCorreo_Result> EncontrarPorCorreo(string email)
         {
             var emailParameter = email != null ?
@@ -99,6 +165,27 @@ namespace ProyectoApiGupo6.Models
                 new ObjectParameter("ConfirmacionContrasenna", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<RegistrarNuevaContrasenna_Result>("RegistrarNuevaContrasenna", codigoAccesoParameter, nuevaContrasennaParameter, confirmacionContrasennaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<long>> RegistrarProducto(Nullable<long> categoriaId, string nombreProducto, string descripcion, Nullable<decimal> precio)
+        {
+            var categoriaIdParameter = categoriaId.HasValue ?
+                new ObjectParameter("CategoriaId", categoriaId) :
+                new ObjectParameter("CategoriaId", typeof(long));
+    
+            var nombreProductoParameter = nombreProducto != null ?
+                new ObjectParameter("NombreProducto", nombreProducto) :
+                new ObjectParameter("NombreProducto", typeof(string));
+    
+            var descripcionParameter = descripcion != null ?
+                new ObjectParameter("Descripcion", descripcion) :
+                new ObjectParameter("Descripcion", typeof(string));
+    
+            var precioParameter = precio.HasValue ?
+                new ObjectParameter("Precio", precio) :
+                new ObjectParameter("Precio", typeof(decimal));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<long>>("RegistrarProducto", categoriaIdParameter, nombreProductoParameter, descripcionParameter, precioParameter);
         }
     
         public virtual int RegistrarUsuario(string nombre, string apellidos, string email, string contrasenna)

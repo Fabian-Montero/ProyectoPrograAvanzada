@@ -1,0 +1,69 @@
+﻿@model List<ProyectoWebGrupo6.Entidades.Producto>
+@{
+    ViewBag.Title = "MantenimientoProductos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Pantalla de mantenimiento de  Productos</h1>
+        <div class="card mb-4">
+            <div class="card-body">
+                @if (ViewBag.MsjPantalla != null)
+                {
+                    <div class="alert alert-warning" role="alert" style="text-align:center">
+                        @ViewBag.MsjPantalla
+                    </div>
+                }
+                <div style="margin-bottom:1%; text-align:left">
+                    <a class="btn btn-primary InputColor" href="@Url.Action("RegistrarProducto","Producto")"> + Agregar</a>
+                </div>
+
+                <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
+                    <thead>
+                        <tr role="row">
+
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Categoría</th>
+                            <th>Precio</th>
+                            
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd">
+                                <td style="text-align:center"><img src="@item.RutaImagen" style="width:125px; height:125px;"></td>
+                                <td>@item.NombreProducto</td>
+                                <td>@item.Descripcion</td>
+                                <td>@item.NombreCategoria</td>
+                                <td>@item.Precio</td>
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("ActualizarProducto", "Producto", new { ProductoId = @item.ProductoId })"class="btn InputColor">Editar</a>
+                                    <a href="@Url.Action("EliminarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor">Eliminar</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            }
+        });
+    });
+</script>
+
+
+

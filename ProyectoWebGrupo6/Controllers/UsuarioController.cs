@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace ProyectoWebGrupo6.Controllers
 {
+    [OutputCache(NoStore = true, Duration = 0)]
     public class UsuarioController : Controller
     {
         UsuarioModel usuarioModel = new UsuarioModel();
