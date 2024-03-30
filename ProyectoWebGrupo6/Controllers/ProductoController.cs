@@ -20,11 +20,21 @@ namespace ProyectoWebGrupo6.Controllers
     {
 
         ProductoModel productoModel = new ProductoModel();
-        // GET: Inicio
         [HttpGet]
         public ActionResult ConsultarProducto()
         {
-            return View();
+            var respuesta = productoModel.ConsultarProductos();
+
+            if (respuesta.Codigo == 0)
+            {
+
+                return View(respuesta.Datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Producto>());
+            }
         }
 
         [HttpGet]
@@ -180,8 +190,6 @@ namespace ProyectoWebGrupo6.Controllers
 
 
         //Supabase 
-
-
 
         public async Task<Supabase.Client> Supabase()
 

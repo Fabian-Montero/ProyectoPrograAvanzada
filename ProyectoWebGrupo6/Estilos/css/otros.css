@@ -9,7 +9,7 @@
 }
 
 .InputColor:hover {
-    background-color: #5dc1b9;
+    background-color:#5dc1b9;
     color: #ffffff;
 }
 
@@ -44,3 +44,23 @@
     pointer-events: none;
     cursor: default;
 }
+
+.numberSelector {
+    text-align: center;
+    width: 50px;
+    border-color: #5dc1b9;
+    border-width:2px;
+}
+
+.product-img {
+    width: 100%; 
+    height: 270px; 
+    overflow: hidden; 
+}
+
+.product-img img {
+    object-fit: cover; 
+    width: 100%; 
+    height: 100%; 
+}
+
