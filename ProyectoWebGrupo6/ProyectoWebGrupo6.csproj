@@ -234,9 +234,15 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Estilos\css\animate.min.css" />
     <Content Include="Estilos\css\otros.css" />
+    <Content Include="Estilos\css\styleP.css" />
     <Content Include="Estilos\css\styles.css" />
     <Content Include="Estilos\img\error-404-monochrome.svg" />
+    <Content Include="Estilos\img\logo.jpeg" />
+    <Content Include="Estilos\jquery\jquery.min.js" />
+    <Content Include="Estilos\js\easing.js" />
+    <Content Include="Estilos\js\easing.min.js" />
     <Content Include="Estilos\js\scripts.js" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -285,8 +291,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Carlos\" />
-    <Folder Include="Views\Fabian\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

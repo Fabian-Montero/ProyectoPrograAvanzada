@@ -1,20 +1,61 @@
-﻿
+﻿@model List<ProyectoWebGrupo6.Entidades.Producto>
 @{
     ViewBag.Title = "Producto";
 }
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center mt-5">
 
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="product-item bg-light mb-4">
+                    <div class="product-img position-relative overflow-hidden">
+                        <img class="img-fluid product-image" src="@item.RutaImagen" alt="Producto">
+                        <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                            @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "2")
+                            {
+                                <ul class="list-unstyled product-action">
+                                    <li><a class="btn btn-outline-dark btn-square" href="shop-single.html"><i class="fa fa-eye"></i></a></li>
+                                    <li><a class="btn btn-outline-dark btn-square" href="shop-single.html"><i class="fa fa-cart-plus"></i></a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item m-1">@item.NombreProducto</li>
+                        <li class="list-group-item m-1">@item.Descripcion</li>
+                        <li class="list-group-item">Precio: ₡@item.Precio</li>
+                    </ul>
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9" style="margin-left:90px">
+                                <input type="number" class="form-control numberSelector" value="1" min="1" style="text-align:center">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+<!--
 <main>
     <div class="container-fluid px-4">
         <h1 class="mt-4">Pantalla de Productos</h1>
         <div class="card mb-4">
             <div class="card-body">
                 <p>Aqui irá la pantalla de productos para los clientes</p>
-                @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "1")
+                if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "1")
                 {
-                    <a href="@Url.Action("ActualizarProducto", "Producto")">Actualizar</a>
+                    <a href="Url.Action("ActualizarProducto", "Producto")">Actualizar</a>
                 }
             </div>
         </div>
     </div>
 </main>
-
+-->
