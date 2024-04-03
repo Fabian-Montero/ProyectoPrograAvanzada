@@ -108,5 +108,36 @@ namespace ProyectoWebGrupo6.Models
                 }
             }
         }
+
+        public ConfirmacionUsuario ConsultarUsuario()
+        {
+            using (var client = new HttpClient())
+            {
+                long idUsuario = long.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ConsultarUsuario?id=" + idUsuario;
+                var respuesta = client.GetAsync(url).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                    return respuesta.Content.ReadFromJsonAsync<ConfirmacionUsuario>().Result;
+                else
+                    return null;
+            }
+        }
+
+        public Confirmacion ModificarUsuario(Usuario entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                entidad.Id = long.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ModificarUsuario";
+                JsonContent jsonEntidad = JsonContent.Create(entidad);
+                var respuesta = client.PutAsync(url, jsonEntidad).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                else
+                    return null;
+            }
+        }
     }
 }

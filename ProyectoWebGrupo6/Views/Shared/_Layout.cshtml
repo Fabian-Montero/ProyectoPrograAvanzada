@@ -6,6 +6,9 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Inicio</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="~/Estilos/img/logo.png" />
+
     <link href="~/Estilos/css/styles.css" rel="stylesheet" />
     <link href="~/Estilos/css/styleP.css" rel="stylesheet" />
     <link href="~/Estilos/css/otros.css" rel="stylesheet" />
@@ -25,7 +28,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle navlinkColor" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Configuraciones</a></li>
+                    <li><a class="dropdown-item"href="@Url.Action("ModificarUsuario", "Usuario")">Configuraciones</a></li>
                     <li><a class="dropdown-item" href="#!">Log de actividad</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" href="@Url.Action("CerrarSesionUsuario", "Usuario")">Cerrar sesión</a></li>

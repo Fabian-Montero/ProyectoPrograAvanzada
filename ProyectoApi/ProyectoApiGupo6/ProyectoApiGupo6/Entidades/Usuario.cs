@@ -24,7 +24,7 @@ namespace ProyectoApiGupo6.Entidades
     {
         public int Codigo { get; set; }
         public String Detalle { get; set; }
-        public IniciarSesionUsuario_Result Usuario { get; set; }
+        public object Usuario { get; set; }
 
         public EncontrarPorCorreo_Result UsuarioEncontrado { get; set; }
 
