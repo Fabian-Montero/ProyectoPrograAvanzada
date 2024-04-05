@@ -239,7 +239,7 @@
     <Content Include="Estilos\css\styleP.css" />
     <Content Include="Estilos\css\styles.css" />
     <Content Include="Estilos\img\error-404-monochrome.svg" />
-    <Content Include="Estilos\img\logo.jpeg" />
+    <Content Include="Estilos\img\logo.png" />
     <Content Include="Estilos\jquery\jquery.min.js" />
     <Content Include="Estilos\js\easing.js" />
     <Content Include="Estilos\js\easing.min.js" />
@@ -288,6 +288,7 @@
     <Content Include="Views\Producto\ActualizarProducto.cshtml" />
     <Content Include="Views\Producto\MantenimientoProductos.cshtml" />
     <Content Include="Views\Producto\RegistrarProducto.cshtml" />
+    <Content Include="Views\Usuario\ModificarUsuario.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

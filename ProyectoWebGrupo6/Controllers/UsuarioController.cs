@@ -30,7 +30,7 @@ namespace ProyectoWebGrupo6.Controllers
             {
                 string nombreCompleto = respuesta.Usuario.Nombre + " " + respuesta.Usuario.Apellidos;
                 Session["NombreCompleto"] = nombreCompleto;
-
+                Session["IdUsuario"] = respuesta.Usuario.Id;
                 Session["RolUsuario"] = respuesta.Usuario.rolId;
 
                 return RedirectToAction("Inicio", "Inicio");
@@ -149,6 +149,31 @@ namespace ProyectoWebGrupo6.Controllers
         {
             Session.Clear();
             return RedirectToAction("IniciarSesionUsuario","Usuario");
+        }
+
+        [FiltroSeguridad]
+        [HttpGet]
+        public ActionResult ModificarUsuario()
+        {
+            var resp = usuarioModel.ConsultarUsuario();
+            return View(resp.Usuario);
+        }
+    
+        [HttpPost]
+        public ActionResult ModificarUsuario(Usuario entidad)
+        {
+            var respuesta = usuarioModel.ModificarUsuario(entidad);
+
+            if (respuesta.Codigo == 0)
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
         }
 
     }

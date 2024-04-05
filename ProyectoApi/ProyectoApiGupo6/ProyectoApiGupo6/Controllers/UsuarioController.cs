@@ -267,5 +267,72 @@ namespace ProyectoApiGupo6.Controllers
             return respuesta;
         }
 
+        [HttpGet]
+        [Route("Usuario/ConsultarUsuario")]
+        public ConfirmacionUsuario ConsultarUsuario(long id)
+        {
+            var respuesta = new ConfirmacionUsuario();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var datos = db.ConsultarUsuario(id).FirstOrDefault();
+
+                    if (datos != null)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                        respuesta.Usuario = datos;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se encontraron resultados";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+        [HttpPut]
+        [Route("Usuario/ModificarUsuario")]
+        public Confirmacion ModificarUsuario(Usuario entidad)
+        {
+            var respuesta = new Confirmacion();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos,entidad.Email);
+
+                    if (resp > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = "Se actualizado los datos de usuario correctamente!";
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "El usuario no se pudo modificar";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
     }
 }
