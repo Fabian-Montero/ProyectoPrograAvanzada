@@ -7,20 +7,18 @@ using System.Web.Routing;
 
 namespace ProyectoWebGrupo6.Models
 {
-    public class FiltroAdmin : ActionFilterAttribute
+    public class FiltroEditarUsuario : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            if (filterContext.HttpContext.Session["RolUsuario"].ToString() != "1")
+            if (filterContext.HttpContext.Session["UsuarioId"].ToString() == filterContext.ActionParameters["id"].ToString())
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary
                 {
-                    {"controller" , "Usuario"},
-                    {"action" , "Error401"}
+                    { "controller", "Usuario" },
+                    { "action", "Error401"} 
                 });
             }
-
-            base.OnActionExecuting(filterContext);
         }
     }
 }

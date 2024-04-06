@@ -117,9 +117,6 @@ namespace ProyectoApiGupo6.Controllers
                             respuesta.Usuario = dato;
                         }
 
-                        /*respuesta.Codigo = 0;
-                        respuesta.Detalle = string.Empty;
-                        respuesta.Usuario = dato;*/
                     }
                     else
                     {
@@ -141,7 +138,7 @@ namespace ProyectoApiGupo6.Controllers
         {
 
             var respuesta = new ConfirmacionUsuario();
-            {
+            
 
                 try {
                     using (var db = new MordidaDivinaEntities())
@@ -168,8 +165,8 @@ namespace ProyectoApiGupo6.Controllers
                     respuesta.Detalle = "Se presentó un error en el sistema";
                 }
                 return respuesta;
-            }
         }
+        
 
         private Usuario ConvertirAUsuario(EncontrarPorCorreo_Result resultado)
         {
@@ -267,9 +264,64 @@ namespace ProyectoApiGupo6.Controllers
             return respuesta;
         }
 
+
+        //CRUD USUARIOS 
+
+        [HttpGet]
+        [Route("Usuario/ConsultarUsuarios")]
+        public ConfirmacionUsuario ConsultarUsuarios() 
+        {
+            var respuesta = new ConfirmacionUsuario();
+
+
+
         [HttpGet]
         [Route("Usuario/ConsultarUsuario")]
         public ConfirmacionUsuario ConsultarUsuario(long id)
+        {
+            var respuesta = new ConfirmacionUsuario();
+
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+
+                    var datos = db.ConsultarUsuarios().ToList();
+
+                    var datos = db.ConsultarUsuario(id).FirstOrDefault();
+
+
+                    if (datos != null)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+
+                        respuesta.Datos = datos;
+
+                        respuesta.Usuario = datos;
+
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+
+                        respuesta.Detalle = "No se pudo encontrar información de los usuarios";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+            return respuesta;
+        }
+
+        [HttpGet]
+        [Route("Usuario/ConsultarUsuarioMantenimiento")]
+
+        public ConfirmacionUsuario ConsultarUsuarioMantenimiento(long UsuarioId)
         {
             var respuesta = new ConfirmacionUsuario();
 
@@ -277,18 +329,21 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var datos = db.ConsultarUsuario(id).FirstOrDefault();
+                    var datos = db.ConsultarUsuarioMantenimiento(UsuarioId).FirstOrDefault();
 
                     if (datos != null)
                     {
                         respuesta.Codigo = 0;
                         respuesta.Detalle = string.Empty;
-                        respuesta.Usuario = datos;
+                        respuesta.Dato = datos;
                     }
                     else
                     {
                         respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se econtraron resultados";
+
                         respuesta.Detalle = "No se encontraron resultados";
+
                     }
                 }
             }
@@ -302,8 +357,9 @@ namespace ProyectoApiGupo6.Controllers
         }
 
         [HttpPut]
-        [Route("Usuario/ModificarUsuario")]
-        public Confirmacion ModificarUsuario(Usuario entidad)
+
+        [Route("Usuario/ActualizarUsuarioMantenimiento")]
+        public Confirmacion ActualizarUsuarioMantenimiento(Usuario usuario)
         {
             var respuesta = new Confirmacion();
 
@@ -311,17 +367,17 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos,entidad.Email);
+                    var resp = db.ActualizarUsuarioMantenimiento(usuario.Id, usuario.rolId, usuario.Nombre, usuario.Apellidos, usuario.Email, usuario.Contrasenna, usuario.Activo, usuario.Temporal, usuario.Vencimiento);
 
                     if (resp > 0)
                     {
                         respuesta.Codigo = 0;
-                        respuesta.Detalle = "Se actualizado los datos de usuario correctamente!";
+                        respuesta.Detalle = string.Empty;
                     }
                     else
                     {
                         respuesta.Codigo = -1;
-                        respuesta.Detalle = "El usuario no se pudo modificar";
+                        respuesta.Detalle = "Se presentó un error al actualizar el usuario";
                     }
                 }
             }
@@ -334,5 +390,88 @@ namespace ProyectoApiGupo6.Controllers
             return respuesta;
         }
 
+        [HttpDelete]
+        [Route("Usuario/EliminarUsuarioMantenimiento")]
+        public Confirmacion EliminarUsuarioMantenimiento(long UsuarioId)
+
+        [Route("Usuario/ModificarUsuario")]
+        public Confirmacion ModificarUsuario(Usuario entidad)
+
+        {
+            var respuesta = new Confirmacion();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+
+                    var resp = db.EliminarUsuarioMantenimiento(UsuarioId);
+
+                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos,entidad.Email);
+
+
+                    if (resp > 0)
+                    {
+                        respuesta.Codigo = 0;
+
+                        respuesta.Detalle = string.Empty;
+
+                        respuesta.Detalle = "Se actualizado los datos de usuario correctamente!";
+
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+
+                        respuesta.Detalle = "El usuario no se pudo eliminar";
+
+                        respuesta.Detalle = "El usuario no se pudo modificar";
+
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+
+        [HttpGet]
+        [Route("Usuario/ConsultarTiposRoles")]
+        public ConfirmacionTiposRoles ConsultarTiposRoles()
+        {
+            var respuesta = new ConfirmacionTiposRoles();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var datos = db.ConsultarTiposRoles().ToList();
+
+                    if (datos != null)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                        respuesta.Datos = datos;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se econtraron resultados";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
@@ -32,6 +33,8 @@ namespace ProyectoWebGrupo6.Controllers
                 Session["NombreCompleto"] = nombreCompleto;
                 Session["IdUsuario"] = respuesta.Usuario.Id;
                 Session["RolUsuario"] = respuesta.Usuario.rolId;
+                Session["NombreRol"] = respuesta.Usuario.NombreRol;
+                Session["UsuarioId"] = respuesta.Usuario.Id;
 
                 return RedirectToAction("Inicio", "Inicio");
             }
@@ -65,6 +68,10 @@ namespace ProyectoWebGrupo6.Controllers
         }
 
         public ActionResult Error401()
+        {
+            return View();
+        }
+        public ActionResult Error401Login()
         {
             return View();
         }
@@ -151,6 +158,68 @@ namespace ProyectoWebGrupo6.Controllers
             return RedirectToAction("IniciarSesionUsuario","Usuario");
         }
 
+
+
+        //CRUD USUARIOS
+
+        [HttpGet]
+        [FiltroAdmin]
+
+        public ActionResult MantenimientoUsuarios()
+        {
+            var  respuesta = usuarioModel.ConsultarUsuarios();
+            if (respuesta.Codigo ==0)
+            {
+                return View(respuesta.Datos);
+            }
+            else {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Producto>());
+            }
+            
+        }
+
+        [HttpGet]
+        [FiltroAdmin]
+        [FiltroEditarUsuario]
+        public ActionResult ActualizarUsuarioMantenimiento(long id)
+        {
+            var respuesta = usuarioModel.ConsultarUsuarioMantenimiento(id);
+            CargarViewBagRoles();
+            CargarViewBagEstado();
+            CargarViewBagTemporal();
+            
+            return View(respuesta.Dato);
+            
+        }
+        [FiltroAdmin]
+        [HttpPost]
+        public ActionResult ActualizarUsuarioMantenimiento(Usuario usuario)
+        {
+            var respuesta = usuarioModel.ActualizarUsuarioMantenimiento(usuario);
+
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("MantenimientoUsuarios", "Usuario");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [FiltroAdmin]
+        public ActionResult EliminarUsuarioMantenimiento(long id)
+        {
+            var respuesta = usuarioModel.EliminarUsuarioMantenimiento(id);
+
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("MantenimientoUsuarios", "Usuario");
+            }
+
         [FiltroSeguridad]
         [HttpGet]
         public ActionResult ModificarUsuario()
@@ -169,12 +238,56 @@ namespace ProyectoWebGrupo6.Controllers
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View();
             }
+
             else
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View();
             }
         }
+
+
+
+
+
+        private void CargarViewBagEstado()
+        {
+
+            var tiposEstado = new List<SelectListItem>();
+
+            tiposEstado.Add(new SelectListItem { Text = "Seleccione un estado", Value = "" });
+            tiposEstado.Add(new SelectListItem { Text = "Activo", Value = true.ToString() });
+            tiposEstado.Add(new SelectListItem { Text = "Inactivo", Value = false.ToString() });
+
+            ViewBag.TiposEstado = tiposEstado;
+        }
+
+        private void CargarViewBagTemporal()
+        {
+
+            var tiposTemporal = new List<SelectListItem>();
+
+            tiposTemporal.Add(new SelectListItem { Text = "Seleccione si desea que el usuario tenga una contraseña temporal", Value = "" });
+            tiposTemporal.Add(new SelectListItem { Text = "Sí", Value = true.ToString() });
+            tiposTemporal.Add(new SelectListItem { Text = "No", Value = false.ToString() });
+
+            ViewBag.TiposTemporal = tiposTemporal;
+        }
+
+        private void CargarViewBagRoles()
+        {
+            var respuesta =  usuarioModel.ConsultarTiposRoles();
+            var tiposRoles = new List<SelectListItem>();
+
+            tiposRoles.Add(new SelectListItem { Text = "Seleccione un rol", Value = "" });
+            foreach (var role in respuesta.Datos)
+                tiposRoles.Add(new SelectListItem { Text = role.NombreRol, Value = role.RolId.ToString() });
+
+
+
+            ViewBag.TiposRoles = tiposRoles;
+        }
+
 
     }
 }

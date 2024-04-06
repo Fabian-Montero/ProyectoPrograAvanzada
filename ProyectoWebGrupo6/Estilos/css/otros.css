@@ -7,6 +7,15 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.InputColorDisable {
+    background-color: chartreuse;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
 .InputColor:hover {
     background-color:#5dc1b9;

@@ -207,11 +207,13 @@
     <Compile Include="Entidades\Direccion.cs" />
     <Compile Include="Entidades\Producto.cs" />
     <Compile Include="Entidades\TiposCategorias.cs" />
+    <Compile Include="Entidades\TiposRoles.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\FiltroAdmin.cs" />
+    <Compile Include="Models\FiltroEditarUsuario.cs" />
     <Compile Include="Models\FiltroSeguridad.cs" />
     <Compile Include="Models\ProductoModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
@@ -288,7 +290,13 @@
     <Content Include="Views\Producto\ActualizarProducto.cshtml" />
     <Content Include="Views\Producto\MantenimientoProductos.cshtml" />
     <Content Include="Views\Producto\RegistrarProducto.cshtml" />
+
+    <Content Include="Views\Usuario\Error401Login.cshtml" />
+    <Content Include="Views\Usuario\MantenimientoUsuarios.cshtml" />
+    <Content Include="Views\Usuario\ActualizarUsuarioMantenimiento.cshtml" />
+
     <Content Include="Views\Usuario\ModificarUsuario.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
