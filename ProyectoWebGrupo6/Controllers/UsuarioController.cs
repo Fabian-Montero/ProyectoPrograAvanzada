@@ -31,7 +31,7 @@ namespace ProyectoWebGrupo6.Controllers
             {
                 string nombreCompleto = respuesta.Usuario.Nombre + " " + respuesta.Usuario.Apellidos;
                 Session["NombreCompleto"] = nombreCompleto;
-
+                Session["IdUsuario"] = respuesta.Usuario.Id;
                 Session["RolUsuario"] = respuesta.Usuario.rolId;
                 Session["NombreRol"] = respuesta.Usuario.NombreRol;
                 Session["UsuarioId"] = respuesta.Usuario.Id;
@@ -159,6 +159,7 @@ namespace ProyectoWebGrupo6.Controllers
         }
 
 
+
         //CRUD USUARIOS
 
         [HttpGet]
@@ -218,12 +219,33 @@ namespace ProyectoWebGrupo6.Controllers
             {
                 return RedirectToAction("MantenimientoUsuarios", "Usuario");
             }
+
+        [FiltroSeguridad]
+        [HttpGet]
+        public ActionResult ModificarUsuario()
+        {
+            var resp = usuarioModel.ConsultarUsuario();
+            return View(resp.Usuario);
+        }
+    
+        [HttpPost]
+        public ActionResult ModificarUsuario(Usuario entidad)
+        {
+            var respuesta = usuarioModel.ModificarUsuario(entidad);
+
+            if (respuesta.Codigo == 0)
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+
             else
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
                 return View();
             }
         }
+
 
 
 
@@ -265,6 +287,7 @@ namespace ProyectoWebGrupo6.Controllers
 
             ViewBag.TiposRoles = tiposRoles;
         }
+
 
     }
 }

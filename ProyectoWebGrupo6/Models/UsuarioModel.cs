@@ -109,6 +109,7 @@ namespace ProyectoWebGrupo6.Models
             }
         }
 
+
         //CRUD USUARIOS
 
         public ConfirmacionUsuario ConsultarUsuarios()
@@ -131,6 +132,14 @@ namespace ProyectoWebGrupo6.Models
             {
 
                 string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ConsultarUsuarioMantenimiento?UsuarioId=" + UsuarioId;
+
+        public ConfirmacionUsuario ConsultarUsuario()
+        {
+            using (var client = new HttpClient())
+            {
+                long idUsuario = long.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ConsultarUsuario?id=" + idUsuario;
+
                 var respuesta = client.GetAsync(url).Result;
 
                 if (respuesta.IsSuccessStatusCode)
@@ -140,6 +149,7 @@ namespace ProyectoWebGrupo6.Models
             }
         }
 
+
         public Confirmacion ActualizarUsuarioMantenimiento(Usuario usuario)
         {
             using (var client = new HttpClient())
@@ -147,6 +157,15 @@ namespace ProyectoWebGrupo6.Models
 
                 string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ActualizarUsuarioMantenimiento?UsuarioId=" + usuario.Id;
                 JsonContent jsonEntidad = JsonContent.Create(usuario);
+
+        public Confirmacion ModificarUsuario(Usuario entidad)
+        {
+            using (var client = new HttpClient())
+            {
+                entidad.Id = long.Parse(HttpContext.Current.Session["IdUsuario"].ToString());
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Usuario/ModificarUsuario";
+                JsonContent jsonEntidad = JsonContent.Create(entidad);
+
                 var respuesta = client.PutAsync(url, jsonEntidad).Result;
 
                 if (respuesta.IsSuccessStatusCode)
@@ -155,6 +174,7 @@ namespace ProyectoWebGrupo6.Models
                     return null;
             }
         }
+
 
         public Confirmacion EliminarUsuarioMantenimiento(long UsuarioId)
         {
@@ -185,5 +205,6 @@ namespace ProyectoWebGrupo6.Models
                     return null;
             }
         }
+
     }
 }

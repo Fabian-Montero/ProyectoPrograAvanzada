@@ -264,6 +264,7 @@ namespace ProyectoApiGupo6.Controllers
             return respuesta;
         }
 
+
         //CRUD USUARIOS 
 
         [HttpGet]
@@ -273,22 +274,38 @@ namespace ProyectoApiGupo6.Controllers
             var respuesta = new ConfirmacionUsuario();
 
 
+
+        [HttpGet]
+        [Route("Usuario/ConsultarUsuario")]
+        public ConfirmacionUsuario ConsultarUsuario(long id)
+        {
+            var respuesta = new ConfirmacionUsuario();
+
+
             try
             {
                 using (var db = new MordidaDivinaEntities())
                 {
+
                     var datos = db.ConsultarUsuarios().ToList();
+
+                    var datos = db.ConsultarUsuario(id).FirstOrDefault();
+
 
                     if (datos != null)
                     {
                         respuesta.Codigo = 0;
                         respuesta.Detalle = string.Empty;
+
                         respuesta.Datos = datos;
+
+                        respuesta.Usuario = datos;
 
                     }
                     else
                     {
                         respuesta.Codigo = -1;
+
                         respuesta.Detalle = "No se pudo encontrar información de los usuarios";
                     }
                 }
@@ -324,6 +341,9 @@ namespace ProyectoApiGupo6.Controllers
                     {
                         respuesta.Codigo = -1;
                         respuesta.Detalle = "No se econtraron resultados";
+
+                        respuesta.Detalle = "No se encontraron resultados";
+
                     }
                 }
             }
@@ -337,6 +357,7 @@ namespace ProyectoApiGupo6.Controllers
         }
 
         [HttpPut]
+
         [Route("Usuario/ActualizarUsuarioMantenimiento")]
         public Confirmacion ActualizarUsuarioMantenimiento(Usuario usuario)
         {
@@ -372,6 +393,10 @@ namespace ProyectoApiGupo6.Controllers
         [HttpDelete]
         [Route("Usuario/EliminarUsuarioMantenimiento")]
         public Confirmacion EliminarUsuarioMantenimiento(long UsuarioId)
+
+        [Route("Usuario/ModificarUsuario")]
+        public Confirmacion ModificarUsuario(Usuario entidad)
+
         {
             var respuesta = new Confirmacion();
 
@@ -379,17 +404,29 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
+
                     var resp = db.EliminarUsuarioMantenimiento(UsuarioId);
+
+                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos,entidad.Email);
+
 
                     if (resp > 0)
                     {
                         respuesta.Codigo = 0;
+
                         respuesta.Detalle = string.Empty;
+
+                        respuesta.Detalle = "Se actualizado los datos de usuario correctamente!";
+
                     }
                     else
                     {
                         respuesta.Codigo = -1;
+
                         respuesta.Detalle = "El usuario no se pudo eliminar";
+
+                        respuesta.Detalle = "El usuario no se pudo modificar";
+
                     }
                 }
             }
@@ -401,6 +438,7 @@ namespace ProyectoApiGupo6.Controllers
 
             return respuesta;
         }
+
 
         [HttpGet]
         [Route("Usuario/ConsultarTiposRoles")]
@@ -435,7 +473,5 @@ namespace ProyectoApiGupo6.Controllers
 
             return respuesta;
         }
-
-
     }
 }
