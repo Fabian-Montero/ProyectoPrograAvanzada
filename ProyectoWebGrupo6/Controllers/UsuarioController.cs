@@ -31,7 +31,6 @@ namespace ProyectoWebGrupo6.Controllers
             {
                 string nombreCompleto = respuesta.Usuario.Nombre + " " + respuesta.Usuario.Apellidos;
                 Session["NombreCompleto"] = nombreCompleto;
-                Session["IdUsuario"] = respuesta.Usuario.Id;
                 Session["RolUsuario"] = respuesta.Usuario.rolId;
                 Session["NombreRol"] = respuesta.Usuario.NombreRol;
                 Session["UsuarioId"] = respuesta.Usuario.Id;
@@ -163,8 +162,8 @@ namespace ProyectoWebGrupo6.Controllers
         //CRUD USUARIOS
 
         [HttpGet]
+        [FiltroSeguridad]
         [FiltroAdmin]
-
         public ActionResult MantenimientoUsuarios()
         {
             var  respuesta = usuarioModel.ConsultarUsuarios();
@@ -219,6 +218,12 @@ namespace ProyectoWebGrupo6.Controllers
             {
                 return RedirectToAction("MantenimientoUsuarios", "Usuario");
             }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
 
         [FiltroSeguridad]
         [HttpGet]
@@ -235,20 +240,16 @@ namespace ProyectoWebGrupo6.Controllers
 
             if (respuesta.Codigo == 0)
             {
-                ViewBag.MsjPantalla = respuesta.Detalle;
+                ViewBag.MsjPantallaExito = respuesta.Detalle;
                 return View();
             }
 
             else
             {
-                ViewBag.MsjPantalla = respuesta.Detalle;
+                ViewBag.MsjPantallaFallida = respuesta.Detalle;
                 return View();
             }
         }
-
-
-
-
 
         private void CargarViewBagEstado()
         {
@@ -282,8 +283,6 @@ namespace ProyectoWebGrupo6.Controllers
             tiposRoles.Add(new SelectListItem { Text = "Seleccione un rol", Value = "" });
             foreach (var role in respuesta.Datos)
                 tiposRoles.Add(new SelectListItem { Text = role.NombreRol, Value = role.RolId.ToString() });
-
-
 
             ViewBag.TiposRoles = tiposRoles;
         }
