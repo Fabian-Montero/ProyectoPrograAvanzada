@@ -1,0 +1,104 @@
+﻿@model List<ProyectoWebGrupo6.Entidades.Usuario>
+@{
+    ViewBag.Title = "MantenimientoUsuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main>
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Mantenimiento de  Usuarios</h1>
+        <p class="">Recuerde que no puede actualizar la información de su usuario, otro administrador deberá hacerlo por usted.</p>
+        <p class="">Si desea inactivar al usuario debe darle click a la opción de editar. Si desea eliminarlo definitivamente debe darle click a la opción de eliminar.</p>
+        <div class="card mb-4">
+            <div class="card-body">
+                @if (ViewBag.MsjPantalla != null)
+                {
+                    <div class="alert alert-warning" role="alert" style="text-align:center">
+                        @ViewBag.MsjPantalla
+                    </div>
+                }
+
+
+                <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
+                    <thead>
+                        <tr role="row">
+
+                            <th>Id del Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellidos</th>
+                            <th>Email</th>
+                            <th>Contraseña</th>
+                            <th>Estado</th>
+                            <th>Contraseña Temporal</th>
+                            <th>Vencimiento</th>
+                            <th>Rol</th>
+                            <th>Acciones</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="odd">
+
+                                <td>@item.Id</td>
+                                <td>@item.Nombre </td>
+                                <td>@item.Apellidos </td>
+                                <td>@item.Email </td>
+                                <td>@item.Contrasenna </td>
+                                @if (item.Activo)
+                                {
+                                    <td>Activo</td>
+                                }
+                                else
+                                {
+                                    <td>Inactivo</td>
+                                }
+                                @if (item.Temporal)
+                                {
+                                    <td>Tiene una contraseña temporal</td>
+                                    <td>@item.Vencimiento</td>
+                                }
+                                else
+                                {
+                                    <td>No tiene una contraseña temporal</td>
+                                    <td></td>
+                                }
+                                <td>@item.NombreRol </td>
+                                @if (item.Id == Convert.ToInt64(HttpContext.Current.Session["UsuarioId"]))
+                                { 
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor" style="background-color: #c7c7c7">Editar</a>
+                                    <a href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor" style="background-color: #c7c7c7">Eliminar</a>
+                                </td>
+                                }                               
+                                else
+                                {
+                                <td style="text-align:center">
+                                    <a href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor">Editar</a>
+                                    <a href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor">Eliminar</a>
+                                </td>
+                                }
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="~/Estilos/jquery/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myDataTable').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+            }
+        });
+    });
+</script>
+
+
+

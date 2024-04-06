@@ -16,7 +16,7 @@ namespace ProyectoWebGrupo6.Models
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary 
                 {
                     {"controller" , "Usuario"},
-                    {"action" , "IniciarSesionUsuario"}
+                    {"action" , "Error401Login"}
                 });
             }
 
