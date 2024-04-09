@@ -200,6 +200,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CategoriaModel.cs" />
     <Compile Include="Models\FiltroAdmin.cs" />
     <Compile Include="Models\FiltroEditarUsuario.cs" />
     <Compile Include="Models\FiltroSeguridad.cs" />
@@ -290,13 +292,13 @@
     <Content Include="Views\Producto\ActualizarProducto.cshtml" />
     <Content Include="Views\Producto\MantenimientoProductos.cshtml" />
     <Content Include="Views\Producto\RegistrarProducto.cshtml" />
-
     <Content Include="Views\Usuario\Error401Login.cshtml" />
     <Content Include="Views\Usuario\MantenimientoUsuarios.cshtml" />
     <Content Include="Views\Usuario\ActualizarUsuarioMantenimiento.cshtml" />
-
     <Content Include="Views\Usuario\ModificarUsuario.cshtml" />
-
+    <Content Include="Views\Categoria\MantenimientoCategorias.cshtml" />
+    <Content Include="Views\Categoria\RegistrarCategoria.cshtml" />
+    <Content Include="Views\Categoria\ActualizarCategoria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
