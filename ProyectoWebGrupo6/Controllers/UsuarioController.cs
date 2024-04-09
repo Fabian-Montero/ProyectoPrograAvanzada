@@ -196,7 +196,6 @@ namespace ProyectoWebGrupo6.Controllers
         public ActionResult ActualizarUsuarioMantenimiento(Usuario usuario)
         {
             var respuesta = usuarioModel.ActualizarUsuarioMantenimiento(usuario);
-
             if (respuesta.Codigo == 0)
             {
                 return RedirectToAction("MantenimientoUsuarios", "Usuario");
