@@ -14,17 +14,21 @@
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
                             <div class="card-header"><h3 class="text-center font-weight-light my-4">Crear Cuenta</h3></div>
                             <div class="card-body">
-                                @if (ViewBag.msjPantalla!=null) {
+                                @if (ViewBag.msjPantalla!=null)
+                                {
                                     <div class="alert alert-warning" role="alert" style="text-align:center">
                                         @ViewBag.MsjPantalla
                                     </div>
                                 }
                                 @using (Html.BeginForm("RegistrarUsuario", "Usuario"))
                                 {
+                                    @Html.HiddenFor(m => m.Direccion.Provincia, new { @Id = "Provincia" })
+                                    @Html.HiddenFor(m => m.Direccion.Canton, new { @Id = "Canton" })
+                                    @Html.HiddenFor(m => m.Direccion.Distrito, new { @Id = "Distrito" })
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control form-control-user", @placeholder = "Ingrese su nombre", @type ="Text",@required = "true", @Id = "Nombre"})
+                                                @Html.TextBoxFor(m => m.Nombre, new { @class = "form-control form-control-user", @placeholder = "Ingrese su nombre", @type = "Text", @required = "true", @Id = "Nombre" })
                                                 <label for="Nombre">Nombre</label>
                                             </div>
                                         </div>
@@ -55,21 +59,27 @@
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-md-4">
-                                            <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Direccion.Provincia, new { @class = "form-control form-control-user", @placeholder = "Ingrese su provincia", @type = "Text", @required = "true", @Id = "Provincia" })
-                                                <label for="Provincia">Provincia</label>
+                                            <div class="form-floating mb-3 mb-md-0 ">
+                                                <select id="provincias" class="form-control" required>
+                                                    
+                                                </select>
+                                                <label for="provincias">Provincia</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Direccion.Canton, new { @class = "form-control form-control-user", @placeholder = "Ingrese su cantón", @type = "Text", @required = "true", @Id = "Canton" })
-                                                <label for="Canton">Cantón</label>
+                                                <select id="cantones" class="form-control" required>
+                                                    <option value="">Seleccione una provincia</option>
+                                                </select>
+                                                <label for="cantones">Cantón</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Direccion.Distrito, new { @class = "form-control form-control-user", @placeholder = "Ingrese su distrito", @type = "Text", @required = "true", @Id = "Distrito" })
-                                                <label for="Distrito">Distrito</label>
+                                                <select id="distritos" class="form-control" required>
+                                                    <option value="">Seleccione una provincia y cantón</option>
+                                                </select>
+                                                <label for="distritos">Distrito</label>
                                             </div>
                                         </div>
                                     </div>
@@ -94,4 +104,5 @@
         </main>
     </div>
 </div>
-
+<script src="~/Estilos/jquery/jquery.min.js"></script>
+<script src="~/Estilos/js/direcciones.js"></script>

@@ -358,8 +358,9 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
+                    var respDireccion = db.ActualizarDireccionMantenimiento(usuario.Id, usuario.Provincia, usuario.Canton, usuario.Distrito, usuario.DireccionExacta);
                     var resp = db.ActualizarUsuarioMantenimiento(usuario.Id, usuario.rolId, usuario.Nombre, usuario.Apellidos, usuario.Email, usuario.Activo, usuario.Temporal, usuario.Vencimiento);
-
+                    
                     if (resp > 0)
                     {
                         respuesta.Codigo = 0;

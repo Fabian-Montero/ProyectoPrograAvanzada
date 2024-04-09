@@ -22,6 +22,9 @@
                                 }
                                 @using (Html.BeginForm("ActualizarUsuarioMantenimiento", "Usuario"))
                                 {
+                                    @Html.HiddenFor(m => m.Provincia, new { @Id = "Provincia" })
+                                    @Html.HiddenFor(m => m.Canton, new { @Id = "Canton" })
+                                    @Html.HiddenFor(m => m.Distrito, new { @Id = "Distrito" })
                                     <div class="row mb-3">
                                         <div class="col-md-6">
                                             <div class="form-floating mb-3 mb-md-0">
@@ -43,20 +46,25 @@
                                     <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Provincia, new { @class = "form-control form-control-user", @placeholder = "Ingrese su provincia", @type = "Text", @required = "true", @Id = "Provincia" })
-                                                <label for="Provincia">Provincia</label>
+                                                <select id="provincias" class="form-control" required>
+                                                </select>
+                                                <label for="provincias">Provincia</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Canton, new { @class = "form-control form-control-user", @placeholder = "Ingrese su cantón", @type = "Text", @required = "true", @Id = "Canton" })
-                                                <label for="Canton">Cantón</label>
+                                                <select id="cantones" class="form-control" required>
+                                                    <option value="">Seleccione una provincia</option>
+                                                </select>
+                                                <label for="cantones">Cantón</label>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-floating mb-3 mb-md-0">
-                                                @Html.TextBoxFor(m => m.Distrito, new { @class = "form-control form-control-user", @placeholder = "Ingrese su distrito", @type = "Text", @required = "true", @Id = "Distrito" })
-                                                <label for="Distrito">Distrito</label>
+                                                <select id="distritos" class="form-control" required>
+                                                    <option value="">Seleccione una provincia y cantón</option>
+                                                </select>
+                                                <label for="distritos">Distrito</label>
                                             </div>
                                         </div>
                                     </div>
@@ -84,7 +92,7 @@
                                         <div class="col-md-6">
                                             <div class="form-floating">
 
-                                                @Html.DropDownListFor(m => m.Activo, ViewBag.TiposEstado as List<SelectListItem>, new { @class = "form-control form-control-user", @placeholder = "Estado", required = "true", @Id = "Estado"})
+                                                @Html.DropDownListFor(m => m.Activo, ViewBag.TiposEstado as List<SelectListItem>, new { @class = "form-control form-control-user", @placeholder = "Estado", required = "true", @Id = "Estado" })
                                                 <label for="Estado">Estado</label>
                                             </div>
                                         </div>
@@ -104,15 +112,17 @@
                                     </div>
                                 }
                             </div>
-                                    <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="@Url.Action("MantenimientoUsuarios", "Usuario")">Volver a usuarios</a></div>
-                                    </div>
-                                </div>
+                            <div class="card-footer text-center py-3">
+                                <div class="small"><a href="@Url.Action("MantenimientoUsuarios", "Usuario")">Volver a usuarios</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 </div>
+<script src="~/Estilos/jquery/jquery.min.js"></script>
+<script src="~/Estilos/js/direccionesEditar.js"></script>
 
 
