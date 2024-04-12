@@ -253,8 +253,8 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Icons\image_2024-03-24_153351547-removebg-preview.png" />
-    <Content Include="Icons\image_2024-03-24_155055477-removebg-preview.png" />
+    <Content Include="Iconos\image_2024-03-24_153351547-removebg-preview.png" />
+    <Content Include="Iconos\image_2024-03-24_155055477-removebg-preview.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
