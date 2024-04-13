@@ -9,7 +9,6 @@ using System.Web.Http;
 
 namespace ProyectoApiGupo6.Controllers
 {
-
     public class ProductoController : ApiController
     {
         [HttpGet]

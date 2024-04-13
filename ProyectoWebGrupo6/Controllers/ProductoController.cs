@@ -20,9 +20,26 @@ namespace ProyectoWebGrupo6.Controllers
     {
 
         ProductoModel productoModel = new ProductoModel();
+        CarritoModel carritoModel = new CarritoModel();
+
         [HttpGet]
         public ActionResult ConsultarProducto()
         {
+            var datos = carritoModel.ConsultarCarrito(long.Parse(Session["UsuarioId"].ToString()));
+
+            if (datos.Codigo == 0)
+            {
+                Session["Cantidad"] = datos.Datos.AsEnumerable().Sum(x => x.Cantidad);
+                Session["SubTotal"] = datos.Datos.AsEnumerable().Sum(x => x.SubTotal);
+                Session["Total"] = datos.Datos.AsEnumerable().Sum(x => x.Total);
+            }
+            else
+            {
+                Session["Cantidad"] = "0";
+                Session["SubTotal"] = "0";
+                Session["Total"] = "0";
+            }
+
             var respuesta = productoModel.ConsultarProductos();
 
             if (respuesta.Codigo == 0)
