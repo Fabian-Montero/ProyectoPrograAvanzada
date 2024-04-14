@@ -9,7 +9,6 @@ namespace ProyectoWebGrupo6.Entidades
     {
         public long ProductoId { get; set; }
         public long CategoriaId { get; set; }
-
         public string NombreCategoria { get; set; }
         public string NombreProducto { get; set; }
         public string Descripcion { get; set; }

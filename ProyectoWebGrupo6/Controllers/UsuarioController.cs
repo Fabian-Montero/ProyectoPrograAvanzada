@@ -15,6 +15,7 @@ namespace ProyectoWebGrupo6.Controllers
     public class UsuarioController : Controller
     {
         UsuarioModel usuarioModel = new UsuarioModel();
+        CarritoModel carritoModel = new CarritoModel();
 
         [HttpGet]
         public ActionResult IniciarSesionUsuario()
@@ -25,6 +26,7 @@ namespace ProyectoWebGrupo6.Controllers
         [HttpPost]
         public ActionResult IniciarSesionUsuario(Usuario usuario)
         {
+
             var respuesta = usuarioModel.IniciarSesionUsuario(usuario);
 
             if (respuesta.Codigo == 0)
@@ -34,6 +36,21 @@ namespace ProyectoWebGrupo6.Controllers
                 Session["RolUsuario"] = respuesta.Usuario.rolId;
                 Session["NombreRol"] = respuesta.Usuario.NombreRol;
                 Session["UsuarioId"] = respuesta.Usuario.Id;
+
+                var datos = carritoModel.ConsultarCarrito(long.Parse(Session["UsuarioId"].ToString()));
+
+                if (datos.Codigo == 0)
+                {
+                    Session["Cantidad"] = datos.Datos.AsEnumerable().Sum(x => x.Cantidad);
+                    Session["SubTotal"] = datos.Datos.AsEnumerable().Sum(x => x.SubTotal);
+                    Session["Total"] = datos.Datos.AsEnumerable().Sum(x => x.Total);
+                }
+                else
+                {
+                    Session["Cantidad"] = "0";
+                    Session["SubTotal"] = "0";
+                    Session["Total"] = "0";
+                }
 
                 return RedirectToAction("Inicio", "Inicio");
             }
