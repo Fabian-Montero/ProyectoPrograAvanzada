@@ -308,6 +308,9 @@
     <Content Include="Views\Categoria\RegistrarCategoria.cshtml" />
     <Content Include="Views\Categoria\ActualizarCategoria.cshtml" />
     <Content Include="Views\Carrito\ConsultaCarrito.cshtml" />
+    <Content Include="Views\Carrito\ConsultarPedidos.cshtml" />
+    <Content Include="Views\Carrito\ConsultarDetalleFacturas.cshtml" />
+    <Content Include="Views\Carrito\PedidosMantenimiento.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

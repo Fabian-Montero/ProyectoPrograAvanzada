@@ -34,10 +34,9 @@
 
 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="@Url.Action("ModificarUsuario", "Usuario")">Configuraciones</a></li>
-                    <li><a class="dropdown-item" href="#!">Log de actividad</a></li>
+                    <li><a class="dropdown-item toPress" href="@Url.Action("ModificarUsuario", "Usuario")">Configuraciones</a></li>
                     <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="@Url.Action("CerrarSesionUsuario", "Usuario")">Cerrar sesión</a></li>
+                    <li><a class="dropdown-item toPress" href="@Url.Action("CerrarSesionUsuario", "Usuario")">Cerrar sesión</a></li>
                 </ul>
             </li>
         </ul>
@@ -71,6 +70,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                                 Mantenimiento Categorías
                             </a>
+                            <a class="nav-link navlinkColor" href="@Url.Action("PedidosMantenimiento", "Carrito")">
+                                <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+                                Mantenimiento &nbsp;Pedidos
+                            </a>
                         }
 
                         @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "2")
@@ -83,7 +86,7 @@
                             <a class="nav-link navlinkColor" href="@Url.Action("ConsultaCarrito", "Carrito")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i> @Session["Cantidad"].ToString() </div>
                                 Carrito
-                            </a><a class="nav-link navlinkColor" href="@Url.Action("ConsultarProducto", "Producto")">
+                            </a><a class="nav-link navlinkColor" href="@Url.Action("ConsultarPedidos", "Carrito")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-file-invoice"></i></div>
                                 Mis pedidos
                             </a>

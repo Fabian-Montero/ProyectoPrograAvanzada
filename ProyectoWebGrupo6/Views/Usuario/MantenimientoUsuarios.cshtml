@@ -5,77 +5,78 @@
 }
 
 
-<main>
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Mantenimiento de  Usuarios</h1>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold" style="color: #5dc1b9;">Mantenimiento Usuarios</h6>
+    </div>
+    <div class="card-body">
         <p class="">Recuerde que no puede actualizar la información de su usuario, otro administrador deberá hacerlo por usted.</p>
         <p class="">Si desea inactivar al usuario debe darle click a la opción de editar. Si desea eliminarlo definitivamente debe darle click a la opción de eliminar.</p>
-        <div class="card mb-4">
-            <div class="card-body">
-                @if (ViewBag.MsjPantalla != null)
-                {
-                    <div class="alert alert-warning" role="alert" style="text-align:center">
-                        @ViewBag.MsjPantalla
-                    </div>
-                }
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        @if (ViewBag.MsjPantalla != null)
+                        {
+                            <div class="alert alert-warning" role="alert" style="text-align:center">
+                                @ViewBag.MsjPantalla
+                            </div>
+                        }
 
-
-                <div class="container">
-                    <div class="d-flex justify-content-center">
-                        <table id="myDataTable" class="table-responsive table-bordered dataTable" style="width: 100%; border-collapse: collapse;">
+                        <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
                             <thead>
                                 <tr role="row">
-                                    <th style="text-align:center">Id del Usuario</th>
-                                    <th style="text-align:center">Nombre</th>
-                                    <th style="text-align:center">Apellidos</th>
-                                    <th style="text-align:center">Email</th>
-                                    <th style="text-align:center">Estado</th>
-                                    <th style="text-align:center">Contraseña Temporal</th>
-                                    <th style="text-align:center">Vencimiento</th>
-                                    <th style="text-align:center">Rol</th>
-                                    <th style="text-align:center">Acciones</th>
+                                    <th>Id del Usuario</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Email</th>
+                                    <th>Estado</th>
+                                    <th>Contraseña Temporal</th>
+                                    <th>Vencimiento</th>
+                                    <th>Rol</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd">
-                                        <td style="text-align:center">@item.Id</td>
-                                        <td style="text-align:center">@item.Nombre </td>
-                                        <td style="text-align:center">@item.Apellidos </td>
-                                        <td style="text-align:center">@item.Email </td>
+                                        <td>@item.Id</td>
+                                        <td>@item.Nombre </td>
+                                        <td>@item.Apellidos </td>
+                                        <td>@item.Email </td>
                                         @if (item.Activo)
                                         {
-                                            <td style="text-align:center">Activo</td>
+                                            <td>Activo</td>
                                         }
                                         else
                                         {
-                                            <td style="text-align:center">Inactivo</td>
+                                            <td>Inactivo</td>
                                         }
                                         @if (item.Temporal)
                                         {
-                                            <td style="text-align:center">Tiene una contraseña temporal</td>
-                                            <td style="text-align:center">@item.Vencimiento</td>
+                                            <td>Tiene una contraseña temporal</td>
+                                            <td>@item.Vencimiento</td>
                                         }
                                         else
                                         {
-                                            <td style="text-align:center">No tiene una contraseña temporal</td>
+                                            <td>No tiene una contraseña temporal</td>
                                             <td></td>
                                         }
-                                        <td style="text-align:center">@item.NombreRol </td>
+                                        <td>@item.NombreRol </td>
 
                                         @if (item.Id == Convert.ToInt64(HttpContext.Current.Session["UsuarioId"]))
                                         {
-                                            <td style="text-align:center">
-                                                <a style="background-color: #c7c7c7;margin-bottom:3px" href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor">Editar</a>
-                                                <a style="background-color: #c7c7c7;margin-bottom:3px" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor">Eliminar</a>
+                                            <td class="align-middle text-center">
+                                                <a style="background-color: #c7c7c7;" href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Editar</a>
+                                                <a style="background-color: #c7c7c7;" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Eliminar</a>
                                             </td>
                                         }
                                         else
                                         {
-                                            <td style="text-align:center">
-                                                <a style="margin-bottom:3px" href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor">Editar</a>
-                                                <a style="margin-bottom:3px" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor">Eliminar</a>
+                                            <td class="align-middle text-center">
+                                                <a href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Editar</a>
+                                                <a href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Eliminar</a>
                                             </td>
                                         }
                                     </tr>
@@ -84,22 +85,20 @@
                         </table>
                     </div>
                 </div>
-
-
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</main>
-<script src="~/Estilos/jquery/jquery.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#myDataTable').DataTable({
-            language: {
-                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
-            }
-        });
-    });
-</script>
+        <script src="~/Estilos/jquery/jquery.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#myDataTable').DataTable({
+                    language: {
+                        url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
+                    }
+                });
+            });
+        </script>
 
 
 

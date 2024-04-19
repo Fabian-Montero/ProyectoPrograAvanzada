@@ -111,5 +111,175 @@ namespace ProyectoApiGupo6.Controllers
             }
             return respuesta;
         }
+
+        [HttpPost]
+        [Route("Carrito/PagoCarrito")]
+        public Confirmacion PagoCarrito(Carrito entidad) {
+            
+            var respuesta = new Confirmacion();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var resp = db.PagoCarrito(entidad.Usuarioid);
+
+                    if (resp > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se pudo realizar su pedido, intentelo nuevamente";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+        [HttpGet]
+        [Route("Carrito/ConsultarPedidos")]
+        public ConfirmacionCarrito ConsultarPedidos(long usuarioId)
+        {
+            var respuesta = new ConfirmacionCarrito();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var datos = db.ConsultarPedidos(usuarioId).ToList();
+
+                    if (datos.Count > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                        respuesta.Datos = datos;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se encontraron resultados";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+        [HttpGet]
+        [Route("Carrito/ConsultarPedidosMantenimiento")]
+        public ConfirmacionCarrito ConsultarPedidosMantenimiento(bool MostrarTodos)
+        {
+            var respuesta = new ConfirmacionCarrito();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var datos = db.ConsultarPedidosMantenimiento(MostrarTodos).ToList();
+
+                    if (datos.Count > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                        respuesta.Datos = datos;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se encontraron resultados";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+
+        [HttpGet]
+        [Route("Carrito/ConsultarDetallePedidos")]
+        public ConfirmacionCarrito ConsultarDetallePedidos(long maestroId)
+        {
+            var respuesta = new ConfirmacionCarrito();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var datos = db.ConsultarDetallePedidos(maestroId).ToList();
+
+                    if (datos.Count > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                        respuesta.Datos = datos;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se encontraron resultados";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
+        [HttpDelete]
+        [Route("Carrito/ActualizarEstadoPedido")]
+        public Confirmacion ActualizarEstadoPedido(long maestroId)
+        {
+            var respuesta = new Confirmacion();
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var resp = db.ActualizarEstadoPedido(maestroId);
+
+                    if (resp > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "No se logro actualizar el estado del pedido";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
     }
+
 }
+

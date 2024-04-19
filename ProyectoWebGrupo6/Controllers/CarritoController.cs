@@ -67,6 +67,90 @@ namespace ProyectoWebGrupo6.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult PagoCarrito(Carrito entidad)
+        {
+            entidad.Usuarioid = long.Parse(Session["UsuarioId"].ToString());
+            var respuesta = Carritomodel.PagoCarrito(entidad);
+
+            if (respuesta.Codigo == 0)
+            {
+                ActualizarCarrito();
+                return RedirectToAction("Inicio", "Inicio");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+
+                var items = Carritomodel.ConsultarCarrito(long.Parse(Session["UsuarioId"].ToString()));
+                return View("ConsultaCarrito", items.Datos);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ConsultarPedidos()
+        {
+            var respuesta = Carritomodel.ConsultarPedidos(long.Parse(Session["UsuarioId"].ToString()));
+
+            if (respuesta.Codigo == 0)
+            {
+                return View(respuesta.Datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Carrito>());
+            }
+        }
+       
+        [HttpGet]
+        [FiltroAdmin]
+        public ActionResult PedidosMantenimiento()
+        {
+            var respuesta = Carritomodel.ConsultarPedidosMantenimiento(true);
+
+            if (respuesta.Codigo == 0)
+            {
+                return View(respuesta.Datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Carrito>());
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ConsultarDetalleFacturas(long id)
+        {
+            var respuesta = Carritomodel.ConsultarDetallePedidos(id);
+
+            if (respuesta.Codigo == 0)
+            {
+                return View(respuesta.Datos);
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View(new List<Carrito>());
+            }
+        }
+
+        [HttpGet]
+        public ActionResult ActualizarEstadoPedido(long id)
+        {
+            var respuesta = Carritomodel.ActualizarEstadoPedido(id);
+            if(respuesta.Codigo == 0)
+            {
+                return RedirectToAction("PedidosMantenimiento", "Carrito");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
         private void ActualizarCarrito()
         {
             var datos = Carritomodel.ConsultarCarrito(long.Parse(Session["UsuarioId"].ToString()));

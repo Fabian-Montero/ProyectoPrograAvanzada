@@ -4,52 +4,59 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main>
-    <div class="container-fluid px-4">
-        <h1 class="mt-4">Mantenimiento de Categorías</h1>
-        <div class="card mb-4">
-            <div class="card-body">
-                @if (ViewBag.MsjPantalla != null)
-                {
-                    <div class="alert alert-warning" role="alert" style="text-align:center">
-                        @ViewBag.MsjPantalla
-                    </div>
-                }
-
-                <div style="margin-bottom:1%; text-align:left">
-                    <a class="btn InputColor" href="@Url.Action("RegistrarCategoria","Categoria")"> + Agregar</a>
-                </div>
-
-                <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
-                    <thead>
-                        <tr role="row">
-
-                            <th>Id de la Categoría</th>
-                            <th>Nombre</th>
-                            <th>Acciones</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold" style="color: #5dc1b9;">Mantenimiento Categorías</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        @if (ViewBag.MsjPantalla != null)
                         {
-                            <tr class="odd">
-
-                                <td>@item.CategoriaId</td>
-                                <td>@item.NombreCategoria</td>
-                                <td style="text-align:center">
-                                    <a href="@Url.Action("ActualizarCategoria", "Categoria", new { CategoriaId = @item.CategoriaId })" class="btn InputColor">Editar</a>
-                                    <a href="@Url.Action("EliminarCategoria", "Categoria", new { CategoriaId = @item.CategoriaId })" class="btn InputColor">Eliminar</a>
-                                </td>
-
-                            </tr>
+                            <div class="alert alert-warning" role="alert" style="text-align:center">
+                                @ViewBag.MsjPantalla
+                            </div>
                         }
-                    </tbody>
-                </table>
+
+                        <div style="margin-bottom:1%; text-align:left">
+                            <a class="btn InputColor" href="@Url.Action("RegistrarCategoria","Categoria")"> + Agregar</a>
+                        </div>
+
+                        <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
+                            <thead>
+                                <tr role="row">
+
+                                    <th>Id de la Categoría</th>
+                                    <th>Nombre</th>
+                                    <th>Acciones</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr class="odd">
+
+                                        <td>@item.CategoriaId</td>
+                                        <td>@item.NombreCategoria</td>
+                                        <td style="text-align:center">
+                                            <a href="@Url.Action("ActualizarCategoria", "Categoria", new { CategoriaId = @item.CategoriaId })" class="btn InputColor mb-2">Editar</a>
+                                            <a href="@Url.Action("EliminarCategoria", "Categoria", new { CategoriaId = @item.CategoriaId })" class="btn InputColor mb-2">Eliminar</a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</main>
+</div>
+            </main>
 <script src="~/Estilos/jquery/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
