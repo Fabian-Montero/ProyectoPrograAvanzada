@@ -73,4 +73,18 @@
     height: 100%; 
 }
 
+.iconCustom {
+    color: #de7cce !important;
+}
 
+.iconCustom:hover {
+    color: #5dc1b9 !important;
+}
+
+.toPress:hover{
+    background-color:#e0e0e0 !important;
+}
+
+.toPress:active {
+    background-color: #de7cce !important;
+}

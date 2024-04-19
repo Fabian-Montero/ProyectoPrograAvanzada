@@ -1,13 +1,13 @@
-﻿@model List<ProyectoWebGrupo6.Entidades.Producto>
+﻿@model List<ProyectoWebGrupo6.Entidades.Carrito>
+
 @{
-    ViewBag.Title = "MantenimientoProductos";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "ConsultarDetalleFacturas";
 }
 
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold" style="color: #5dc1b9;">Mantenimiento Productos</h6>
+        <h6 class="m-0 font-weight-bold" style="color: #5dc1b9;">Codio del Pedido: @Model.FirstOrDefault().MaestroId</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -21,40 +21,33 @@
                                 @ViewBag.MsjPantalla
                             </div>
                         }
-                        <div style="margin-bottom:1%; text-align:left">
-                            <a class="btn InputColor" href="@Url.Action("RegistrarProducto","Producto")"> + Agregar</a>
-                        </div>
 
                         <table id="myDataTable" class="table table-bordered dataTable" style="width: 100%;">
                             <thead>
                                 <tr role="row">
-
-                                    <th>Imagen</th>
                                     <th>Nombre</th>
-                                    <th>Descripción</th>
-                                    <th>Categoría</th>
+                                    <th>Cantidad</th>
                                     <th>Precio</th>
-
-                                    <th>Acciones</th>
+                                    <th>SubTotal</th>
+                                    <th>Impuestos</th>
+                                    <th>Total</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
                                     <tr class="odd">
-                                        <td style="text-align:center"><img src="@item.RutaImagen" style="width:125px; height:125px;"></td>
-                                        <td>@item.NombreProducto</td>
-                                        <td>@item.Descripcion</td>
-                                        <td>@item.NombreCategoria</td>
-                                        <td>@item.Precio</td>
-                                        <td style="text-align:center" class="align-middle" >
-                                            <a href="@Url.Action("ActualizarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor mb-2">Editar</a>
-                                            <a href="@Url.Action("EliminarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor mb-2">Eliminar</a>
-                                        </td>
+                                        <td>@item.Nombre</td>
+                                        <td>@item.Cantidad</td>
+                                        <td>@item.Precio.ToString("N2")</td>
+                                        <td>@item.SubTotal.ToString("N2")</td>
+                                        <td>@item.Impuesto.ToString("N2")</td>
+                                        <td>@item.Total.ToString("N2")</td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
+
                     </div>
                 </div>
             </div>
@@ -71,7 +64,5 @@
             }
         });
     });
+
 </script>
-
-
-
