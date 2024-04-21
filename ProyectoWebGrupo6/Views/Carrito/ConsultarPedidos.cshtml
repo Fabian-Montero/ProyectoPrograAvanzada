@@ -44,22 +44,25 @@
                                         <td>@item.SubTotal.ToString("N2")</td>
                                         <td>@item.Impuesto.ToString("N2")</td>
                                         <td>@item.Total.ToString("N2")</td>
-                                        @if (item.Estado)
-                                        {
-                                            <td style="text-align: center; color: #f3dd5a ; font-weight: bold">Pendiente</td>
+                                        @{
+                                            string estado = item.Estado ? "Pendiente" : "Entregado";
+                                            string color;
+                                            if (item.Estado)
+                                            {
+                                                color = "#F8DF7B"; // Color Amarillo
+                                            }
+                                            else
+                                            {
+                                                color = "#D8D6D5"; // Color Gris
+                                            }
                                         }
-                                        else
-                                        {
-                                            <td style="text-align: center; color: #9df15b; font-weight: bold">Entregado</td>
-                                        }
+                                        <td><span style="padding: 5px 10px; background-color: @color; border-radius: 5px;">@estado</span></td>
                                         <td style="text-align:center" title="Revisar">
                                             <a href="@Url.Action("ConsultarDetalleFacturas","Carrito", new { id = @item.MaestroId })"><i class="fas fa-search iconCustom"></i></a>
-                                        </td>
                                     </tr>
                                 }
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
@@ -72,8 +75,9 @@
     $(document).ready(function () {
         $('#myDataTable').DataTable({
             language: {
-                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
-            }
+                url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json'
+            },
+            order: [[6, 'desc']]
         });
     });
 
