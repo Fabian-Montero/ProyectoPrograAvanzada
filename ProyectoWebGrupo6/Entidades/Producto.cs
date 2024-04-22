@@ -8,6 +8,8 @@ namespace ProyectoWebGrupo6.Entidades
     public class Producto
     {
         public long ProductoId { get; set; }
+
+        public bool Estado { get; set; }
         public long CategoriaId { get; set; }
         public string NombreCategoria { get; set; }
         public string NombreProducto { get; set; }
@@ -15,6 +17,8 @@ namespace ProyectoWebGrupo6.Entidades
         public decimal Precio { get; set; }
 
         public string RutaImagen { get; set; }
+
+        
 
 
 

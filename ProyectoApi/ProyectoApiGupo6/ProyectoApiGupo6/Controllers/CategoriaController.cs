@@ -14,14 +14,14 @@ namespace ProyectoApiGupo6.Controllers
 
         [HttpGet]
         [Route("Categoria/ConsultarCategorias")]
-        public ConfirmacionTiposCategoria ConsultarTiposCategoria()
+        public ConfirmacionTiposCategoria ConsultarTiposCategoria(bool MostrarTodos)
         {
             var respuesta = new ConfirmacionTiposCategoria();
             try
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var datos = db.ConsultarTiposCategoria().ToList();
+                    var datos = db.ConsultarTiposCategoria(MostrarTodos).ToList();
 
                     if (datos != null)
 
@@ -135,7 +135,7 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var resp = db.ActualizarCategoria(categoria.CategoriaId,categoria.NombreCategoria);
+                    var resp = db.ActualizarCategoria(categoria.CategoriaId,categoria.NombreCategoria, categoria.Estado);
 
                     if (resp > 0)
                     {

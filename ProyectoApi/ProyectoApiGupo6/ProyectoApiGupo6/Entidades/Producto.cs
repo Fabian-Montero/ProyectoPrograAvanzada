@@ -17,6 +17,8 @@ namespace ProyectoApiGupo6.Entidades
 
         public string RutaImagen { get; set; }
 
+        public bool Estado { get; set; }
+
 
 
     }

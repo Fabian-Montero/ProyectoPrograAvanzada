@@ -13,11 +13,11 @@ namespace ProyectoWebGrupo6.Models
     public class ProductoModel
     {
 
-        public ConfirmacionProducto ConsultarProductos() 
+        public ConfirmacionProducto ConsultarProductos(bool MostrarTodos) 
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/ConsultarProductos";
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/ConsultarProductos?MostrarTodos=" + MostrarTodos;
                 var respuesta = client.GetAsync(url).Result;
 
                 if (respuesta.IsSuccessStatusCode)
@@ -27,11 +27,11 @@ namespace ProyectoWebGrupo6.Models
             }
         }
 
-        public ConfirmacionTiposCategoria ConsultarTiposCategorias()
+        public ConfirmacionTiposCategoria ConsultarTiposCategorias(bool MostrarTodos)
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/ConsultarTiposCategorias";
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/ConsultarTiposCategorias?MostrarTodos=" + MostrarTodos;
                 var respuesta = client.GetAsync(url).Result;
 
                 if (respuesta.IsSuccessStatusCode)
@@ -75,6 +75,20 @@ namespace ProyectoWebGrupo6.Models
             using (var client = new HttpClient())
             {
                 string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/EliminarProducto?ProductoId=" + ProductoId;
+                var respuesta = client.DeleteAsync(url).Result;
+
+                if (respuesta.IsSuccessStatusCode)
+                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                else
+                    return null;
+            }
+        }
+
+        public Confirmacion EliminarProductoPermanente(long ProductoId)
+        {
+            using (var client = new HttpClient())
+            {
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Producto/EliminarProductoPermanente?ProductoId=" + ProductoId;
                 var respuesta = client.DeleteAsync(url).Result;
 
                 if (respuesta.IsSuccessStatusCode)

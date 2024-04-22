@@ -9,6 +9,8 @@ namespace ProyectoWebGrupo6.Entidades
     {
         public int CategoriaId { get; set; }
         public string NombreCategoria { get; set; }
+
+        public bool Estado { get; set; }    
     }
 
     public class ConfirmacionTiposCategoria

@@ -21,7 +21,7 @@ namespace ProyectoWebGrupo6.Controllers
         [FiltroAdmin]
         public ActionResult MantenimientoCategorias()
         {
-            var respuesta = categoriaModel.ConsultarTiposCategoria();
+            var respuesta = categoriaModel.ConsultarTiposCategoria(true);
 
             if (respuesta.Codigo == 0)
             {
@@ -68,6 +68,7 @@ namespace ProyectoWebGrupo6.Controllers
         public ActionResult ActualizarCategoria(long CategoriaId)
         {
             var respuesta = categoriaModel.ConsultarCategoria(CategoriaId);
+            CargarViewBagEstado();
             return View(respuesta.Dato);
         }
 
@@ -101,8 +102,20 @@ namespace ProyectoWebGrupo6.Controllers
             else
             {
                 ViewBag.MsjPantalla = respuesta.Detalle;
-                return View();
+                return RedirectToAction("MantenimientoCategorias", "Categoria");
             }
+        }
+
+        private void CargarViewBagEstado()
+        {
+
+            var tiposEstado = new List<SelectListItem>();
+
+            tiposEstado.Add(new SelectListItem { Text = "Seleccione un estado", Value = "" });
+            tiposEstado.Add(new SelectListItem { Text = "Activo", Value = true.ToString() });
+            tiposEstado.Add(new SelectListItem { Text = "Inactivo", Value = false.ToString() });
+
+            ViewBag.TiposEstado = tiposEstado;
         }
 
     }

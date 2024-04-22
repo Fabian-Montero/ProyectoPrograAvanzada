@@ -45,14 +45,23 @@
                                         <td>@item.Nombre </td>
                                         <td>@item.Apellidos </td>
                                         <td>@item.Email </td>
-                                        @if (item.Activo)
-                                        {
-                                            <td>Activo</td>
+                                        @{
+                                            string color;
+                                            string estado;
+                                            if (item.Activo == true)
+                                            {
+
+                                                color = "#C8EFC1"; // Color Verde
+                                                estado = "Activo";
+                                            }
+                                            else
+                                            {
+                                                color = "#D8D6D5"; // Color Gris
+                                                estado = "Inactivo";
+                                            }
+
                                         }
-                                        else
-                                        {
-                                            <td>Inactivo</td>
-                                        }
+                                        <td><span style="padding: 5px 10px; background-color: @color; border-radius: 5px;">@estado</span></td>
                                         @if (item.Temporal)
                                         {
                                             <td>Tiene una contraseña temporal</td>
@@ -69,15 +78,24 @@
                                         {
                                             <td class="align-middle text-center">
                                                 <a style="background-color: #c7c7c7;" href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Editar</a>
-                                                <a style="background-color: #c7c7c7;" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Eliminar</a>
+                                                <a style="background-color: #c7c7c7;" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Inactivar</a>
                                             </td>
                                         }
                                         else
                                         {
-                                            <td class="align-middle text-center">
-                                                <a href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Editar</a>
-                                                <a href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Eliminar</a>
-                                            </td>
+                                    <td class="align-middle text-center">
+
+                                        <a href="@Url.Action("ActualizarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Editar</a>
+                                        @if (item.Activo == true)
+                                        {
+                                            <a href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" class="btn InputColor mb-2">Inactivar</a>
+                                        }
+                                        else 
+                                        { 
+                                            <a style="background-color: #c7c7c7;" href="@Url.Action("EliminarUsuarioMantenimiento", "Usuario", new { id = @item.Id })" onclick="return false;" class="btn InputColor mb-2">Inactivar</a>
+                                        }
+
+                                    </td>
                                         }
                                     </tr>
                                 }

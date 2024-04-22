@@ -34,7 +34,7 @@
                                     <th>Descripción</th>
                                     <th>Categoría</th>
                                     <th>Precio</th>
-
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -47,9 +47,35 @@
                                         <td>@item.Descripcion</td>
                                         <td>@item.NombreCategoria</td>
                                         <td>@item.Precio</td>
-                                        <td style="text-align:center" class="align-middle" >
+                                        @{
+                                            string color;
+                                            string estado;
+                                            if (item.Estado == true)
+                                            {
+
+                                                color = "#C8EFC1"; // Color Verde
+                                                estado = "Activo";
+                                            }
+                                            else
+                                            {
+                                                color = "#D8D6D5"; // Color Gris
+                                                estado = "Inactivo";
+                                            }
+                                            
+                                        }
+                                        <td><span style="padding: 5px 10px; background-color: @color; border-radius: 5px;">@estado</span></td>
+                                        <td style="text-align:center" class="align-middle">
                                             <a href="@Url.Action("ActualizarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor mb-2">Editar</a>
-                                            <a href="@Url.Action("EliminarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor mb-2">Eliminar</a>
+
+                                            @if (item.Estado == true)
+                                            {
+                                                <a href="@Url.Action("EliminarProducto", "Producto", new { ProductoId = @item.ProductoId })" class="btn InputColor mb-2">Inactivar</a>
+                                            }
+                                            else
+                                            {
+                                                <a style="background-color: #c7c7c7;" href="@Url.Action("EliminarProducto", "Producto", new { ProductoId = @item.ProductoId })" onclick="return false;" class="btn InputColor mb-2">Inactivar</a>
+                                            }
+                                            
                                         </td>
                                     </tr>
                                 }
