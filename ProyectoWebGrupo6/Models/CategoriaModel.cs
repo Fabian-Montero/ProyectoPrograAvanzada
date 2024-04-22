@@ -13,11 +13,11 @@ namespace ProyectoWebGrupo6.Models
     {
         public string url = ConfigurationManager.AppSettings["urlWebApi"];
 
-        public ConfirmacionTiposCategoria ConsultarTiposCategoria()
+        public ConfirmacionTiposCategoria ConsultarTiposCategoria(bool MostrarTodos)
         {
             using (var client = new HttpClient())
             {
-                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Categoria/ConsultarCategorias";
+                string url = ConfigurationManager.AppSettings["urlWebApi"] + "Categoria/ConsultarCategorias?MostrarTodos=" + MostrarTodos;
                 var respuesta = client.GetAsync(url).Result;
 
                 if (respuesta.IsSuccessStatusCode)

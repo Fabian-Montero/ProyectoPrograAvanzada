@@ -13,7 +13,7 @@ namespace ProyectoApiGupo6.Controllers
     {
         [HttpGet]
         [Route("Producto/ConsultarProductos")]
-        public ConfirmacionProducto ConsultarProductos() 
+        public ConfirmacionProducto ConsultarProductos(bool MostrarTodos) 
         {
             var respuesta = new ConfirmacionProducto();
 
@@ -21,7 +21,7 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var datos = db.ConsultarProductos().ToList();
+                    var datos = db.ConsultarProductos(MostrarTodos).ToList();
 
                     if (datos.Count > 0)
                     {
@@ -46,7 +46,7 @@ namespace ProyectoApiGupo6.Controllers
         }
         [HttpGet]
         [Route("Producto/ConsultarTiposCategorias")]
-        public ConfirmacionTiposCategoria ConsultarTiposCategorias() 
+        public ConfirmacionTiposCategoria ConsultarTiposCategorias(bool MostrarTodos) 
         {
             var respuesta = new ConfirmacionTiposCategoria();
 
@@ -54,7 +54,7 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var datos = db.ConsultarTiposCategoria().ToList();
+                    var datos = db.ConsultarTiposCategoria(MostrarTodos).ToList();
 
                     if (datos.Count > 0)
                     {
@@ -181,6 +181,39 @@ namespace ProyectoApiGupo6.Controllers
             return respuesta;
         }
 
+        [HttpDelete]
+        [Route("Producto/EliminarProductoPermanente")]
+        public Confirmacion EliminarProductoPermante(long ProductoId)
+        {
+            var respuesta = new Confirmacion();
+
+            try
+            {
+                using (var db = new MordidaDivinaEntities())
+                {
+                    var resp = db.EliminarProductoPermanente(ProductoId);
+
+                    if (resp > 0)
+                    {
+                        respuesta.Codigo = 0;
+                        respuesta.Detalle = string.Empty;
+                    }
+                    else
+                    {
+                        respuesta.Codigo = -1;
+                        respuesta.Detalle = "El producto no se pudo eliminar";
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                respuesta.Codigo = -1;
+                respuesta.Detalle = "Se presentó un error en el sistema";
+            }
+
+            return respuesta;
+        }
+
         [HttpGet]
         [Route("Producto/ConsultarProducto")]
         public ConfirmacionProducto ConsultarProducto(long ProductoId)
@@ -225,7 +258,7 @@ namespace ProyectoApiGupo6.Controllers
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var resp = db.ActualizarProducto(producto.ProductoId, producto.CategoriaId, producto.NombreProducto, producto.Descripcion, producto.Precio);
+                    var resp = db.ActualizarProducto(producto.ProductoId, producto.CategoriaId, producto.NombreProducto, producto.Descripcion, producto.Precio, producto.Estado);
 
                     if (resp > 0)
                     {
@@ -247,11 +280,6 @@ namespace ProyectoApiGupo6.Controllers
 
             return respuesta;
         }
-
-
-
-
-
 
     }
 }

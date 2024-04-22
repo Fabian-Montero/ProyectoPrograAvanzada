@@ -37,21 +37,32 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-floating mb-3">
-                                @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control form-control-user", @placeholder = "Ingrese la descripción del producto", @type = "Text", @required = "true", @Id = "Descripcion" })
-                                <label for="Descripcion">Descripción</label>
+                            <div class="row mb-3">
+                                <div class="col-md-9">
+                                    <div class="form-floating mb-3">
+                                        @Html.TextBoxFor(m => m.Descripcion, new { @class = "form-control form-control-user", @placeholder = "Ingrese la descripción del producto", @type = "Text", @required = "true", @Id = "Descripcion" })
+                                        <label for="Descripcion">Descripción</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        @Html.DropDownListFor(m => m.Estado, ViewBag.TiposEstado as List<SelectListItem>, new { @class = "form-control form-control-user", @required = "true", @Id = "Estado" })
+                                        <label for="Estado">Estado</label>
+                                    </div>
+                                </div>
                             </div>
+                            
                             <div class="row mb-3">
                                 <div class="col-md-2">
                                     <div class="form-floating mb-3 mb-md-0">
-                                        @Html.TextBoxFor(m => m.Precio, new { @class = "form-control form-control-user", @placeholder = "Ingrese el precio del producto ",@required = "true", @Id = "Precio" })
+                                        @Html.TextBoxFor(m => m.Precio, new { @class = "form-control form-control-user", @placeholder = "Ingrese el precio del producto ", @required = "true", @Id = "Precio" })
                                         <label for="Precio">Precio</label>
                                     </div>
                                 </div>
-                                <div class="col-md-6"  >
+                                <div class="col-md-6">
                                     <div class="form-floating mb-3 mb-md-0" style="margin-left: 40px;">
 
-                                        <input type="file" id="ImagenProducto" name="ImagenProducto" class="form-control form-control-user"  />
+                                        <input type="file" id="ImagenProducto" name="ImagenProducto" class="form-control form-control-user" />
                                         <label for="Imagen">Imagen</label>
                                     </div>
 
@@ -61,7 +72,7 @@
                                 </div>
 
                             </div>
-                            
+
                             <div class="mt-4 mb-0">
                                 <div class="d-grid">
                                     <input type="submit" class="btn btn-block InputColor" value="Actualizar Producto"></input>

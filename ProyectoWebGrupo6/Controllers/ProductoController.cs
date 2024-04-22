@@ -40,11 +40,11 @@ namespace ProyectoWebGrupo6.Controllers
                 Session["Total"] = "0";
             }
 
-            var respuesta = productoModel.ConsultarProductos();
+            var respuesta = productoModel.ConsultarProductos(false);
 
             if (respuesta.Codigo == 0)
             {
-
+                
                 return View(respuesta.Datos);
             }
             else
@@ -58,10 +58,11 @@ namespace ProyectoWebGrupo6.Controllers
         [FiltroAdmin]
         public ActionResult MantenimientoProductos() {
 
-            var respuesta = productoModel.ConsultarProductos();
+            var respuesta = productoModel.ConsultarProductos(true);
 
             if (respuesta.Codigo == 0) {
 
+                //List<Producto> productosOrdenados = respuesta.Datos.OrderByDescending(p => p.Estado).ToList();
                 return View(respuesta.Datos);
             } else
             {
@@ -104,7 +105,7 @@ namespace ProyectoWebGrupo6.Controllers
                 else
                 {
                     //Eliminar producto creado
-                    EliminarProducto(respuesta.ProductoId);
+                    EliminarProductoPermanente(respuesta.ProductoId);
 
                     //Mensaje de error cuando no es formato PNG
                     ViewBag.MsjPantalla = respuestaImagen.Detalle;
@@ -124,6 +125,23 @@ namespace ProyectoWebGrupo6.Controllers
         public async Task<ActionResult> EliminarProducto(long ProductoId)
         {
             var respuesta = productoModel.EliminarProducto(ProductoId);
+            //await EliminarImagen(ProductoId);
+            if (respuesta.Codigo == 0)
+            {
+                return RedirectToAction("MantenimientoProductos", "Producto");
+            }
+            else
+            {
+                ViewBag.MsjPantalla = respuesta.Detalle;
+                return View();
+            }
+        }
+
+        [HttpGet]
+        [FiltroAdmin]
+        public async Task<ActionResult> EliminarProductoPermanente(long ProductoId)
+        {
+            var respuesta = productoModel.EliminarProductoPermanente(ProductoId);
             await EliminarImagen(ProductoId);
             if (respuesta.Codigo == 0)
             {
@@ -142,6 +160,7 @@ namespace ProyectoWebGrupo6.Controllers
         {
             var resp = productoModel.ConsultarProducto(ProductoId);
             ConsultarTiposCategorias();
+            CargarViewBagEstado();
             ViewBag.urlImagen = resp.Dato.RutaImagen;
             return View(resp.Dato);
         }
@@ -170,10 +189,10 @@ namespace ProyectoWebGrupo6.Controllers
                     }
                     else
                     {
-                        
                         //Mensaje de error cuando no es formato PNG
                         ViewBag.MsjPantalla = RespuestaImagen.Detalle;
                         ConsultarTiposCategorias();
+                        CargarViewBagEstado();
                         return View();
                     }
                 }
@@ -195,7 +214,7 @@ namespace ProyectoWebGrupo6.Controllers
 
         private void ConsultarTiposCategorias()
         {
-            var respuesta = productoModel.ConsultarTiposCategorias();
+            var respuesta = productoModel.ConsultarTiposCategorias(false);
             var tiposCategoria = new List<SelectListItem>();
 
             tiposCategoria.Add(new SelectListItem { Text = "Seleccione una categoría", Value = "" });
@@ -203,6 +222,18 @@ namespace ProyectoWebGrupo6.Controllers
                 tiposCategoria.Add(new SelectListItem { Text = item.NombreCategoria, Value = item.CategoriaId.ToString() });
 
             ViewBag.TiposCategoria = tiposCategoria;
+        }
+
+        private void CargarViewBagEstado()
+        {
+
+            var tiposEstado = new List<SelectListItem>();
+
+            tiposEstado.Add(new SelectListItem { Text = "Seleccione un estado", Value = "" });
+            tiposEstado.Add(new SelectListItem { Text = "Activo", Value = true.ToString() });
+            tiposEstado.Add(new SelectListItem { Text = "Inactivo", Value = false.ToString() });
+
+            ViewBag.TiposEstado = tiposEstado;
         }
 
 
@@ -262,7 +293,7 @@ namespace ProyectoWebGrupo6.Controllers
             catch (Exception ex)
             {
                 respuestaImagen.Codigo = -1;
-                respuestaImagen.Detalle = "Formato de imagen no válido, recuerde usar el formato de imagen PNG";
+                respuestaImagen.Detalle = "Ya existe este producto o se utilizó un formato de imagen no válido, recuerde usar el formato de imagen PNG";
                 respuestaImagen.RutaImagen = "";
                 return respuestaImagen;
             }
