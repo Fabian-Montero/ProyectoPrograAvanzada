@@ -47,26 +47,7 @@ namespace ProyectoWebGrupo6.Models
                     return null;
             }
         }
-    /*
-     * Este metodo puede servir mas adelante
-        public ConfirmacionUsuario encontrarPorCorreo(Usuario usuario)
-        {
-
-            using (var client = new HttpClient())
-            {
-                url += "Usuario/encontrarPorCorreo";
-
-                JsonContent jsonEntidad = JsonContent.Create(usuario);
-                var respuesta = client.PostAsync(url, jsonEntidad).Result;
-
-                if (respuesta.IsSuccessStatusCode)
-                    return respuesta.Content.ReadFromJsonAsync<ConfirmacionUsuario>().Result;
-                else
-                    return null;
-            }
-        }
-
-        */
+    
         public Confirmacion EnvioCodigoAcceso(Usuario usuario)
         {
             using (var client = new HttpClient())
@@ -201,7 +182,7 @@ namespace ProyectoWebGrupo6.Models
             }
         }
 
-        public Confirmacion ModificarUsuario(Usuario entidad)
+        public ConfirmacionUsuario ModificarUsuario(Usuario entidad)
         {
             using (var client = new HttpClient())
             {
@@ -212,7 +193,7 @@ namespace ProyectoWebGrupo6.Models
                 var respuesta = client.PutAsync(url, jsonEntidad).Result;
 
                 if (respuesta.IsSuccessStatusCode)
-                    return respuesta.Content.ReadFromJsonAsync<Confirmacion>().Result;
+                    return respuesta.Content.ReadFromJsonAsync<ConfirmacionUsuario>().Result;
                 else
                     return null;
             }

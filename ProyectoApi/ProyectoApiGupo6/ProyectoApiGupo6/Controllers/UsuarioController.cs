@@ -213,7 +213,7 @@ namespace ProyectoApiGupo6.Controllers
                     else
                     {
                         respuesta.Codigo = -1;
-                        respuesta.Detalle = "No se encontro el usuario";
+                        respuesta.Detalle = "No se encontró el usuario";
                     }
                 }
             }
@@ -245,13 +245,13 @@ namespace ProyectoApiGupo6.Controllers
                         else
                         {
                             respuesta.Codigo = 1;
-                            respuesta.Detalle = "Contraseñadas ingresadas no coinciden entre si";
+                            respuesta.Detalle = "Contraseñadas ingresadas no coinciden entre sí";
                         }
                     }
                     else
                     {
                         respuesta.Codigo = 1;
-                        respuesta.Detalle = "El codigo de acceso es incorrecto";
+                        respuesta.Detalle = "El código de acceso es incorrecto";
                     }
                 }
             }
@@ -486,20 +486,21 @@ namespace ProyectoApiGupo6.Controllers
 
         [HttpPut]
         [Route("Usuario/ModificarUsuario")]
-        public Confirmacion ModificarUsuario(Usuario entidad)
+        public ConfirmacionUsuario ModificarUsuario(Usuario entidad)
         {
-            var respuesta = new Confirmacion();
+            var respuesta = new ConfirmacionUsuario();
 
             try
             {
                 using (var db = new MordidaDivinaEntities())
                 {
-                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos, entidad.Email);
+                    var resp = db.ModificarUsuario(entidad.Id, entidad.Contrasenna, entidad.Nombre, entidad.Apellidos, entidad.Email).FirstOrDefault();
 
-                    if (resp > 0)
+                    if (resp != null)
                     {
                         respuesta.Codigo = 0;
-                        respuesta.Detalle = "Se actualizado los datos de usuario correctamente!";
+                        respuesta.Detalle = "Se han actualizado los datos del usuario correctamente!";
+                        respuesta.Usuario = resp;
                     }
                     else
                     {
