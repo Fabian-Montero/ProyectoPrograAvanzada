@@ -76,7 +76,7 @@ namespace ProyectoWebGrupo6.Controllers
             if (respuesta.Codigo == 0)
             {
                 ActualizarCarrito();
-                return RedirectToAction("Inicio", "Inicio");
+                return RedirectToAction("ConsultarProducto", "Producto");
             }
             else
             {

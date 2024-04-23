@@ -71,7 +71,12 @@ namespace ProyectoWebGrupo6.Controllers
         {
             var respuesta = usuarioModel.RegistrarUsuario(usuario);
 
-            if (respuesta.Codigo == 0)
+            if (usuario.Contrasenna != usuario.ConfirmacionContrasenna)
+            {
+                ViewBag.msjPantalla = "Error al registrar usuario. Las contraseñas deben de ser iguales";
+                return View();
+            }
+            else if (respuesta.Codigo == 0)
             {
                 return RedirectToAction("IniciarSesionUsuario", "Usuario");
             }
@@ -101,29 +106,6 @@ namespace ProyectoWebGrupo6.Controllers
             return View();
         }
 
-        /*
-         * 
-         * Este Metodo puede servir mas adelante
-        [HttpPost]
-        public Usuario EncontrarPorCorreo(Usuario usuario)
-        {
-            
-            var respuesta = usuarioModel.encontrarPorCorreo(usuario);
-
-            if (respuesta.Codigo != 0)
-            {
-                return respuesta.usuario;
-                //ViewBag.errorEncontarPorCorreo = respuesta.Detalle;
-                //return RedirectToAction("RegistrarUsuario", "Usuario");
-            }
-            else
-            {
-                //return RedirectToAction("Login", "Usuario");
-                return null;
-            }
-        }
-
-        */
         [HttpGet]
         public ActionResult EnvioCodigoAcceso()
         {
@@ -173,8 +155,6 @@ namespace ProyectoWebGrupo6.Controllers
             Session.Clear();
             return RedirectToAction("IniciarSesionUsuario","Usuario");
         }
-
-
 
         //CRUD USUARIOS
 
@@ -257,6 +237,8 @@ namespace ProyectoWebGrupo6.Controllers
             if (respuesta.Codigo == 0)
             {
                 ViewBag.MsjPantallaExito = respuesta.Detalle;
+                string nombreCompleto = respuesta.Usuario.Nombre + " " + respuesta.Usuario.Apellidos;
+                Session["NombreCompleto"] = nombreCompleto;
                 return View();
             }
 
@@ -302,7 +284,5 @@ namespace ProyectoWebGrupo6.Controllers
 
             ViewBag.TiposRoles = tiposRoles;
         }
-
-
     }
 }
