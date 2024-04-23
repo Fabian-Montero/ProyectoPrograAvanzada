@@ -46,7 +46,7 @@
                                         <td>@item.NombreProducto</td>
                                         <td>@item.Descripcion</td>
                                         <td>@item.NombreCategoria</td>
-                                        <td>@item.Precio</td>
+                                        <td>₡@item.Precio</td>
                                         @{
                                             string color;
                                             string estado;
@@ -94,7 +94,8 @@
         $('#myDataTable').DataTable({
             language: {
                 url: '//cdn.datatables.net/plug-ins/2.0.2/i18n/es-ES.json',
-            }
+            },
+            order: [[6, 'asc']]
         });
     });
 </script>

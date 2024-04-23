@@ -42,10 +42,10 @@
                                         <td>@item.Productoid</td>
                                         <td>@item.Nombre</td>
                                         <td>@item.Cantidad</td>
-                                        <td>@item.Precio.ToString("N2")</td>
-                                        <td>@item.Impuesto.ToString("N2")</td>
-                                        <td>@item.SubTotal.ToString("N2")</td>
-                                        <td>@item.Total.ToString("N2")</td>
+                                        <td>₡@item.Precio.ToString("N2")</td>
+                                        <td>₡@item.Impuesto.ToString("N2")</td>
+                                        <td>₡@item.SubTotal.ToString("N2")</td>
+                                        <td>₡@item.Total.ToString("N2")</td>
 
                                         <td style="text-align:center">
                                             @*<a href="@Url.Action("EliminarCarrito","Carrito", new { id = @item.Carritoid })"><i class="fas fa-trash fa-2x m-1"></i></a>*@
@@ -63,7 +63,7 @@
                         <br />
 
                         <div>
-                            <p style="font-size:14pt">El monto a cancelar es de: <b> @decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
+                            <p style="font-size:14pt">El monto a cancelar es de: <b> ₡@decimal.Parse(Session["Total"].ToString()).ToString("N2")</b></p>
                             <div>
 
                                 @if (Session["Total"].ToString() != "0")

@@ -202,7 +202,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CarritoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
-    <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Entidades\Carrito.cs" />
@@ -287,7 +286,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Inicio\Inicio.cshtml" />
     <Content Include="Views\Shared\_LayoutExterno.cshtml" />
     <Content Include="Views\Usuario\IniciarSesionUsuario.cshtml" />
     <Content Include="Views\Usuario\RegistrarUsuario.cshtml" />
