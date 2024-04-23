@@ -41,9 +41,9 @@
                                         <td>@item.MaestroId</td>
                                         <td>@item.Fecha.ToString("dd/MM/yyyy hh:mm tt")</td>
                                         <td>@item.Nombre</td>
-                                        <td>@item.SubTotal.ToString("N2")</td>
-                                        <td>@item.Impuesto.ToString("N2")</td>
-                                        <td>@item.Total.ToString("N2")</td>
+                                        <td>₡@item.SubTotal.ToString("N2")</td>
+                                        <td>₡@item.Impuesto.ToString("N2")</td>
+                                        <td>₡@item.Total.ToString("N2")</td>
                                         @{
                                             string estado = item.Estado ? "Pendiente" : "Entregado";
                                             string color;

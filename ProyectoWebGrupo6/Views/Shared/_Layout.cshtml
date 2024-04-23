@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Inicio</title>
+    <title>La Mordida Divina</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="~/Estilos/img/logo.png" />
 
@@ -22,7 +22,10 @@
 <body>
     <nav class="sb-topnav navbar navbar-expand navbarColor">
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3 navlinkColor" href="@Url.Action("Inicio", "Inicio")">La mordida divina</a>
+        <a class="navbar-brand ps-0 navlinkColor" href="@Url.Action("ConsultarProducto", "Producto")">
+            <img style="width: 1em; height: 1em; margin-right: 0.3em; vertical-align: middle;" src="~/Estilos/img/logo.png" />
+            <span style="vertical-align: middle;">La Mordida Divina</span>
+        </a>
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0 navlinkColor" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <a href="https://www.instagram.com/lamordidadivina/" target="_blank"><img src="~/Iconos/image_2024-03-24_153351547-removebg-preview.png" height=100% width=100% /></a>
@@ -34,7 +37,7 @@
 
 
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item toPress" href="@Url.Action("ModificarUsuario", "Usuario")">Configuraciones</a></li>
+                    <li><a class="dropdown-item toPress" href="@Url.Action("ModificarUsuario", "Usuario")">Configuraciones del perfil</a></li>
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item toPress" href="@Url.Action("CerrarSesionUsuario", "Usuario")">Cerrar sesión</a></li>
                 </ul>
@@ -49,22 +52,18 @@
                         @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "1")
                         {
                             <div class="sb-sidenav-menu-heading" style="color: #41162d">Administrador</div>
-                            <a class="nav-link navlinkColor" href="@Url.Action("Inicio", "Inicio")">
-                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                                Pantalla Principal
-                            </a>
                             <a class="nav-link navlinkColor" href="@Url.Action("ConsultarProducto", "Producto")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
                                 Productos
                             </a>
 
-                            <a class="nav-link navlinkColor" href="@Url.Action("MantenimientoProductos", "Producto")">
-                                <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
-                                Mantenimiento Productos
-                            </a>
                             <a class="nav-link navlinkColor" href="@Url.Action("MantenimientoUsuarios", "Usuario")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
                                 Mantenimiento Usuarios
+                            </a>
+                            <a class="nav-link navlinkColor" href="@Url.Action("MantenimientoProductos", "Producto")">
+                                <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
+                                Mantenimiento Productos
                             </a>
                             <a class="nav-link navlinkColor" href="@Url.Action("MantenimientoCategorias", "Categoria")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
@@ -72,7 +71,7 @@
                             </a>
                             <a class="nav-link navlinkColor" href="@Url.Action("PedidosMantenimiento", "Carrito")">
                                 <div class="sb-nav-link-icon"><i class="fas fa-cog"></i></div>
-                                Mantenimiento &nbsp;Pedidos
+                                Mantenimiento <br /> Pedidos
                             </a>
                         }
 

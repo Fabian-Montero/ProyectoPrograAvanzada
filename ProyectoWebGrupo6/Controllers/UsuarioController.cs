@@ -52,7 +52,7 @@ namespace ProyectoWebGrupo6.Controllers
                     Session["Total"] = "0";
                 }
 
-                return RedirectToAction("Inicio", "Inicio");
+                return RedirectToAction("ConsultarProducto", "Producto");
             }
             else
             {

@@ -3,8 +3,11 @@
     ViewBag.Title = "Producto";
 }
 <div class="container-fluid">
-    <div class="row justify-content-center align-items-stretch mt-5">
+    <h1 class="mt-4" style="color: #5dc1b9;">Productos</h1>
+    <p>Productos artesanales hechos con amor y llenos de sabor con ingredientes de primera calidad.</p>
+    <hr style="background-color: gray; border: none;"/>
 
+    <div class="row justify-content-center align-items-stretch mt-5">
         @foreach (var item in Model)
         {
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -25,9 +28,9 @@
                         </div>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item m-1">@item.NombreProducto</li>
+                        <li class="list-group-item m-1"><b>@item.NombreProducto</b></li>
                         <li class="list-group-item m-1">@item.Descripcion</li>
-                        <li class="list-group-item">Precio: ₡@item.Precio</li>
+                        <li class="list-group-item">Precio: ₡@item.Precio +IVA</li>
                     </ul>
                     @if (Session["RolUsuario"] != null && Session["RolUsuario"].ToString() == "2")
                     {
